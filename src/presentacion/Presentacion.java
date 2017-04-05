@@ -4,6 +4,10 @@
 package presentacion;
 
 import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +31,8 @@ public class Presentacion extends JFrame {
 	private JMenuItem open;
 	private JMenuItem save;
 	private JMenuItem exit;
-
+	/*Botones*/
+	private JButton botonStart;
 	public Presentacion() {
 		super();
 		prepareElementos();
@@ -45,6 +50,8 @@ public class Presentacion extends JFrame {
 		centre();
 		prepareMenuPrincipal();
 		add(menu, BorderLayout.NORTH);
+		elementosBoton();
+		add(panelBoton,BorderLayout.SOUTH);
 	}
 
 	private void prepareMenuPrincipal() {
@@ -87,7 +94,14 @@ public class Presentacion extends JFrame {
 			System.exit(0);
 		}
 	}
-
+	private void elementosBoton(){
+		panelBoton= new JPanel();
+		//panelBoton.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),new TitledBorder("juego")));
+		panelBoton.setLayout(new BorderLayout());
+		botonStart = new JButton("Start!");
+		panelBoton.add(botonStart,BorderLayout.CENTER);
+		
+	}
 	private void centre() {
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int xEsquina = (screen.width - getSize().width) / 2;
