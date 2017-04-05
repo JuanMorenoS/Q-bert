@@ -44,9 +44,9 @@ public class Presentacion extends JFrame {
 	private void elementosBoton(){
 		panelBoton= new JPanel();
 		//panelBoton.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),new TitledBorder("juego")));
-		panelBoton.setLayout(new BorderLayout());
+		panelBoton.setLayout(new GridLayout(3, 1));
 		botonStart = new JButton("Start!");
-		panelBoton.add(botonStart,BorderLayout.CENTER);
+		panelBoton.add(botonStart);
 		
 	}
 	private void centre() {

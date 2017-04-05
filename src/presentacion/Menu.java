@@ -20,8 +20,8 @@ public class Menu extends JFrame {
 	private JMenuItem exit;
 	/* Botones*/
 	private JButton start;
-	
-	
+	/**/
+	JPanel panelStart;
 	public Menu() {
 		super();
 		prepareElementos();
@@ -39,7 +39,11 @@ public class Menu extends JFrame {
 
 	}
 	private void prepareStart(){
-		
+		panelStart= new JPanel();
+		//panelBoton.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),new TitledBorder("juego")));
+		panelStart.setLayout(new GridLayout(3, 1));
+		start = new JButton("Start!");
+		panelStart.add(start);
 	}
 	private void centre() {
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
