@@ -3,11 +3,14 @@
  */
 package presentacion;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 /**
  * @author Juan Moreno
@@ -20,7 +23,7 @@ public class Presentacion extends JFrame {
 	private JPanel panelDescripcion;
 	/*Botones*/
 	private JButton botonStart;
-	
+	private BufferedImage imagen;
 	
 	private Presentacion() {
 		super();
@@ -40,7 +43,12 @@ public class Presentacion extends JFrame {
 		elementosBoton();
 		add(panelBoton,BorderLayout.SOUTH);
 	}
-
+	private void prepareCentro(){
+		panelImagen = new JPanel();
+		panelImagen.setLayout(new GridLayout(2, 1));
+		imagen = ImageIO.read(new File("resources/qbert-logo.jpg"));
+		panelImagen.add(new ImageIcon(imagen));
+	}
 	private void elementosBoton(){
 		panelBoton= new JPanel();
 		//panelBoton.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),new TitledBorder("juego")));
