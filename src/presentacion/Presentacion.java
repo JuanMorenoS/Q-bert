@@ -46,8 +46,8 @@ public class Presentacion extends JFrame {
 	private void prepareCentro(){
 		panelImagen = new JPanel();
 		panelImagen.setLayout(new GridLayout(2, 1));
-		imagen = ImageIO.read(new File("resources/qbert-logo.jpg"));
-		panelImagen.add(new ImageIcon(imagen));
+//		imagen = ImageIO.read(new File("resources/qbert-logo.jpg"));
+//		panelImagen.add(new ImageIcon(imagen));
 	}
 	private void elementosBoton(){
 		panelBoton= new JPanel();
