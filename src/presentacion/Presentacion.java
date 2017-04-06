@@ -3,14 +3,12 @@
  */
 package presentacion;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
+
 
 /**
  * @author Juan Moreno
@@ -47,8 +45,10 @@ public class Presentacion extends JFrame {
 	}
 	private void prepareCentro(){
 		panelImagen = new JPanel();
-		panelImagen.setLayout(new GridLayout(2, 1));
-		ImageIcon imagen = new ImageIcon("resources/qbert-logo.jpg");
+		panelImagen.setLayout(new FlowLayout());
+		ImageIcon imagen = new ImageIcon("resources/Pbert.jpg");
+		Image scaleimage =imagen.getImage().getScaledInstance(getWidth(),(getWidth()*imagen.getIconHeight())/imagen.getIconWidth(), Image.SCALE_SMOOTH);
+		imagen = new ImageIcon(scaleimage);
 		JLabel label = new JLabel("", imagen, JLabel.CENTER);
 		panelImagen.add(label, BorderLayout.CENTER);
 	}
