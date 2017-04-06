@@ -38,6 +38,7 @@ public class Presentacion extends JFrame {
 		setTitle("Mega Q*bert");
 		setSize(600, 600);
 		getContentPane().setBackground(Color.BLACK);
+		setResizable(false);
 		centre();
 		elementosBoton();
 		add(panelBoton,BorderLayout.SOUTH);
@@ -48,7 +49,7 @@ public class Presentacion extends JFrame {
 		panelImagen = new JPanel();
 		panelImagen.setBackground(Color.black);
 		panelImagen.setLayout(new FlowLayout());
-		ImageIcon imagen = new ImageIcon("resources/Pbert.jpg");
+		ImageIcon imagen = new ImageIcon("resources/Pbert-2.jpg");
 		Image scaleimage =imagen.getImage().getScaledInstance(getWidth(),(getWidth()*imagen.getIconHeight())/imagen.getIconWidth(), Image.SCALE_SMOOTH);
 		imagen = new ImageIcon(scaleimage);
 		JLabel label = new JLabel("", imagen, JLabel.CENTER);
