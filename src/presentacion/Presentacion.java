@@ -4,6 +4,7 @@
 package presentacion;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -19,6 +20,7 @@ public class Presentacion extends JFrame {
 	private JPanel panelImagen;
 	private JPanel panelBoton;
 	private JPanel panelDescripcion;
+	private JPanel footer;
 	/*Botones*/
 	private JButton botonStart;
 	private BufferedImage imagen;
@@ -41,9 +43,22 @@ public class Presentacion extends JFrame {
 		setResizable(false);
 		centre();
 		elementosBoton();
-		add(panelBoton,BorderLayout.SOUTH);
+		prepareDescripcion();
+		footer = new JPanel();
+		footer.setLayout(new GridLayout(1, 2));
+		footer.add(panelDescripcion);
+		footer.add(panelBoton);
+		add(footer,BorderLayout.SOUTH);
 		prepareCentro();
-		add(panelImagen);
+		add(panelImagen,BorderLayout.CENTER);
+		
+	}
+	private void prepareDescripcion() {
+		panelDescripcion = new JPanel();
+		panelDescripcion.setBackground(Color.black);
+		JLabel text= new JLabel("<html><font color='yellow'>Escuela Colombiana de Ingenieria Julio Garavito <br> "
+				+ "Made by: </font></html>");
+		panelDescripcion.add(text);
 	}
 	private void prepareCentro(){
 		panelImagen = new JPanel();
