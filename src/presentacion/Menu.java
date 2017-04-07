@@ -30,7 +30,7 @@ public class Menu extends JFrame {
 	private ButtonGroup group;
 	private JTextField player1;
 	private JTextField player2;
-
+	private JComboBox box;
 	public Menu() {
 		super();
 		prepareElementos();
@@ -54,7 +54,7 @@ public class Menu extends JFrame {
 	private void preparecuerpo() {
 		cuerpo = new JPanel();
 		cuerpo.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
-				new TitledBorder("<html><font color='white'> Game Mode:<font></html>")));
+				new TitledBorder("<html><font color='white'> Game Options:<font></html>")));
 		cuerpo.setBackground(Color.BLACK);
 		cuerpo.setLayout(new GridLayout(7,1));
 		human = new JRadioButton("<html><font color='white'> Human vs Human<font></html>");
@@ -72,11 +72,15 @@ public class Menu extends JFrame {
 		nameSpace= new JPanel();
 		nameSpace.setBackground(Color.BLACK);
 		nameSpace.setLayout(new GridLayout(2, 2));
-		nameSpace.add(new JLabel(("<html><font color='white'>Player 1 </font></html>")));
+		nameSpace.add(new JLabel("<html><font color='white'>Player 1 </font></html>"));
 		nameSpace.add(player1);
-		nameSpace.add(new JLabel(("<html><font color='white'>Player 2 </font></html>")));
+		nameSpace.add(new JLabel("<html><font color='white'>Player 2 </font></html>"));
 		nameSpace.add(player2);
 		cuerpo.add(nameSpace);
+		cuerpo.add(new JLabel("<html><font color='white'>Level</font></html>"));
+		String [] ejemplo = new String[]{"Easy","Hard"};
+		box = new JComboBox(ejemplo);
+		cuerpo.add(box);
 	}
 
 	private void prepareStart() {
@@ -84,7 +88,7 @@ public class Menu extends JFrame {
 		// panelBoton.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5,
 		// 5),new TitledBorder("juego")));
 		panelStart.setLayout(new FlowLayout());
-		setNames = new JButton("Names Selector!");
+		setNames = new JButton("Play");
 		panelStart.add(setNames);
 	}
 
