@@ -22,11 +22,15 @@ public class Menu extends JFrame {
 	/* Botones */
 	private JButton setNames;
 	/**/
-	JPanel panelStart;
-	JPanel cuerpo;
-	JRadioButton human;
-	JRadioButton machine;
-	ButtonGroup group;
+	private JPanel panelStart;
+	private JPanel cuerpo;
+	private JPanel nameSpace;
+	private JRadioButton human;
+	private JRadioButton machine;
+	private ButtonGroup group;
+	private JTextField player1;
+	private JTextField player2;
+
 	public Menu() {
 		super();
 		prepareElementos();
@@ -41,23 +45,38 @@ public class Menu extends JFrame {
 		prepareMenuPrincipal();
 		add(menu, BorderLayout.NORTH);
 		preparecuerpo();
-		add(cuerpo,BorderLayout.CENTER);
+		add(cuerpo, BorderLayout.CENTER);
 		prepareStart();
 		add(setNames, BorderLayout.SOUTH);
 
 	}
 
 	private void preparecuerpo() {
-		cuerpo= new JPanel();
+		cuerpo = new JPanel();
+		cuerpo.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
+				new TitledBorder("<html><font color='white'> Game Mode:<font></html>")));
 		cuerpo.setBackground(Color.BLACK);
-		cuerpo.setLayout(new FlowLayout());
-		human = new JRadioButton("Human vs Human");
-		machine = new JRadioButton("Human vs Machine");
-		cuerpo.add(human,true);
-		cuerpo.add(machine,false);
+		cuerpo.setLayout(new GridLayout(7,1));
+		human = new JRadioButton("<html><font color='white'> Human vs Human<font></html>");
+		machine = new JRadioButton("<html><font color='white'> Human vs Machine<font></html>");
+		human.setBackground(Color.black);
+		machine.setBackground(Color.black);
+		cuerpo.add(human, true);
+		cuerpo.add(machine, false);
 		group = new ButtonGroup();
 		group.add(human);
-		group.add(machine );
+		group.add(machine);
+		human.setSelected(true);
+		player1 = new JTextField(10);
+		player2 = new JTextField(10);
+		nameSpace= new JPanel();
+		nameSpace.setBackground(Color.BLACK);
+		nameSpace.setLayout(new GridLayout(2, 2));
+		nameSpace.add(new JLabel(("<html><font color='white'>Player 1 </font></html>")));
+		nameSpace.add(player1);
+		nameSpace.add(new JLabel(("<html><font color='white'>Player 2 </font></html>")));
+		nameSpace.add(player2);
+		cuerpo.add(nameSpace);
 	}
 
 	private void prepareStart() {
