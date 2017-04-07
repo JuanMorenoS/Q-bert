@@ -5,6 +5,7 @@ package presentacion;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.text.GapContent;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,10 +19,14 @@ public class Menu extends JFrame {
 	private JMenuItem open;
 	private JMenuItem save;
 	private JMenuItem exit;
-	/* Botones*/
-	private JButton start;
+	/* Botones */
+	private JButton setNames;
 	/**/
 	JPanel panelStart;
+	JPanel cuerpo;
+	JRadioButton human;
+	JRadioButton machine;
+	ButtonGroup group;
 	public Menu() {
 		super();
 		prepareElementos();
@@ -30,21 +35,40 @@ public class Menu extends JFrame {
 
 	private void prepareElementos() {
 		setTitle("Mega Q*bert - Menu");
+		setBackground(Color.black);
 		setSize(600, 600);
 		centre();
 		prepareMenuPrincipal();
 		add(menu, BorderLayout.NORTH);
+		preparecuerpo();
+		add(cuerpo,BorderLayout.CENTER);
 		prepareStart();
-		add(start,BorderLayout.SOUTH);
+		add(setNames, BorderLayout.SOUTH);
 
 	}
-	private void prepareStart(){
-		panelStart= new JPanel();
-		//panelBoton.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),new TitledBorder("juego")));
-		panelStart.setLayout(new GridLayout(3, 1));
-		start = new JButton("Start!");
-		panelStart.add(start);
+
+	private void preparecuerpo() {
+		cuerpo= new JPanel();
+		cuerpo.setBackground(Color.BLACK);
+		cuerpo.setLayout(new FlowLayout());
+		human = new JRadioButton("Human vs Human");
+		machine = new JRadioButton("Human vs Machine");
+		cuerpo.add(human,true);
+		cuerpo.add(machine,false);
+		group = new ButtonGroup();
+		group.add(human);
+		group.add(machine );
 	}
+
+	private void prepareStart() {
+		panelStart = new JPanel();
+		// panelBoton.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5,
+		// 5),new TitledBorder("juego")));
+		panelStart.setLayout(new FlowLayout());
+		setNames = new JButton("Names Selector!");
+		panelStart.add(setNames);
+	}
+
 	private void centre() {
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int xEsquina = (screen.width - getSize().width) / 2;
@@ -66,9 +90,9 @@ public class Menu extends JFrame {
 
 			}
 		});
-		start.addActionListener(new ActionListener() {
+		setNames.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				accionStart();				
+				accionStart();
 			}
 		});
 
@@ -81,11 +105,13 @@ public class Menu extends JFrame {
 			System.exit(0);
 		}
 	}
-	private void accionStart(){
+
+	private void accionStart() {
 		this.setVisible(false);
-		NameSelector name= new NameSelector();
+		NameSelector name = new NameSelector();
 		name.setVisible(true);
 	}
+
 	/* menu */
 	private void prepareMenuPrincipal() {
 		menu = new JMenuBar();
