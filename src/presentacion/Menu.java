@@ -131,8 +131,6 @@ public class Menu extends JFrame {
 
 	private void accionStart() {
 		this.setVisible(false);
-		NameSelector name = new NameSelector();
-		name.setVisible(true);
 	}
 
 	/* menu */
