@@ -42,14 +42,10 @@ public class Presentacion extends JFrame {
 		getContentPane().setBackground(Color.BLACK);
 		setResizable(false);
 		centre();
-		elementosBoton();
-		prepareDescripcion();
-		footer = new JPanel();
-		footer.setLayout(new GridLayout(1, 2));
-		footer.add(panelDescripcion);
-		footer.add(panelBoton);
-		add(footer,BorderLayout.SOUTH);
+		elementosBoton();		
 		prepareCentro();
+		prepareDescripcion();
+		add(footer,BorderLayout.SOUTH);
 		add(panelImagen,BorderLayout.CENTER);
 		
 	}
@@ -59,6 +55,11 @@ public class Presentacion extends JFrame {
 		JLabel text= new JLabel("<html><font color='yellow'>Escuela Colombiana de Ingenieria Julio Garavito <br> "
 				+ "Made by: </font></html>");
 		panelDescripcion.add(text);
+		footer = new JPanel();
+		footer.setBackground(Color.black);
+		footer.setLayout(new FlowLayout());
+		footer.add(panelDescripcion);
+		footer.add(panelBoton);
 	}
 	private void prepareCentro(){
 		panelImagen = new JPanel();
