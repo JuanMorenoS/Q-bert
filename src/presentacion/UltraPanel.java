@@ -21,6 +21,7 @@ import java.awt.*;
 public class UltraPanel extends JPanel {
 	private ArrayList<Cube[]> land;
 	private String[] color;
+	private int tam;
 
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);
@@ -33,20 +34,32 @@ public class UltraPanel extends JPanel {
 				}
 			}
 		}
+		
 	}
 
 	public UltraPanel(JFrame god, String in, String fi, int x) {
-		int tam = x;
+		tam = x;
 		color = new String[] { in, "lightGray", "darkGray", fi };
+		tablero();
+	}
+
+	public void add(int x, int y) {
+		land.get(x)[y].setColors(color);
+	}
+
+	public void changeColor(int x, int y) {
+		land.get(x)[y].visited();
+	}
+
+	private void tablero() {
 		land = new ArrayList<>();
-		for (int i = 0; i < 600 / (tam * 4); i++) {
+		for (int i = 0; i < (tam * 4); i++) {
 			if (i % 2 == 0)
-				land.add(new Cube[600 / (tam * 4)]);
+				land.add(new Cube[(tam * 4)]);
 			else
-				land.add(new Cube[(600 / (tam * 4)) - 1]);
+				land.add(new Cube[((tam * 4)) - 1]);
 		}
-		
-		for (int i = 0; i < 600 / (tam * 4); i++) {
+		for (int i = 0; i < (tam * 4); i++) {
 			for (int j = 0; j < land.get(i).length; j++) {
 				if (i % 2 == 0) {
 					land.get(i)[j] = (new Cube(tam, null));
@@ -57,13 +70,6 @@ public class UltraPanel extends JPanel {
 				}
 			}
 		}
-
-	}
-	public void add(int x, int y){
-		land.get(x)[y].setColors(color);
-	}
-	public void changeColor(int x,int y) {
-		land.get(x)[y].visited();
 	}
 }
 
@@ -108,11 +114,12 @@ class Cube {
 			pol.translate(x, y);
 		}
 	}
-	public void setColors(String [] colors){
+
+	public void setColors(String[] colors) {
 		this.colors = new Color[5];
 		if (colors != null) {
 			for (int i = 0; i < 4; i++) {
-				this.colors[i]=stringToColor(colors[i]);
+				this.colors[i] = stringToColor(colors[i]);
 			}
 		} else
 			this.colors = new Color[] { Color.BLACK, Color.BLACK, Color.black, Color.BLACK };
