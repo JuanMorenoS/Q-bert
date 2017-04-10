@@ -83,7 +83,7 @@ public class Presentacion extends JFrame {
 	private void centre() {
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
 		int xEsquina = (screen.width - getSize().width) / 2;
-		int yEsquina = (screen.height - getSize().height) / 2;
+		int yEsquina = (screen.height - getSize().height) / 2;	
 		setLocation(xEsquina, yEsquina);
 	}
 	/*acciones*/
