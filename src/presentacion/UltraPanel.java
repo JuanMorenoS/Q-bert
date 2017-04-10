@@ -20,7 +20,7 @@ import java.awt.*;
  */
 public class UltraPanel extends JPanel {
 	private ArrayList<Cube[]> land;
-	private Color[] color;
+	private String[] color;
 
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);
@@ -35,46 +35,32 @@ public class UltraPanel extends JPanel {
 		}
 	}
 
-	public UltraPanel(JFrame god, String in, String fi) {
-		color = new Color[] { stringToColor(in), Color.darkGray, Color.lightGray, stringToColor(fi) };
+	public UltraPanel(JFrame god, String in, String fi, int x) {
+		int tam = x;
+		color = new String[] { in, "lightGray", "darkGray", fi };
 		land = new ArrayList<>();
-		for (int i = 0; i < 600 / 100; i++) {
-			if (i%2==0)
-				land.add(new Cube[6]);
+		for (int i = 0; i < 600 / (tam * 4); i++) {
+			if (i % 2 == 0)
+				land.add(new Cube[600 / (tam * 4)]);
 			else
-				land.add(new Cube[5]);
+				land.add(new Cube[(600 / (tam * 4)) - 1]);
 		}
-		int h=0;
-		for (int i = 0; i < 600 / 100; i++) {
-			int w=0;
+		for (int i = 0; i < 600 / (tam * 4); i++) {
 			for (int j = 0; j < land.get(i).length; j++) {
-				
-				if (i % 2 == 0){
-					land.get(i)[j] = (new Cube(25, color));
-					land.get(i)[j].move(j*100,i*75);
-					
-				}
-				else{
-					land.get(i)[j] = (new Cube(25, color));
-					land.get(i)[j].move((j*100)+50,i*75);
+				if (i % 2 == 0) {
+					land.get(i)[j] = (new Cube(tam, color));
+					land.get(i)[j].move(j * tam * 4, i * tam * 3);
+				} else {
+					land.get(i)[j] = (new Cube(tam, color));
+					land.get(i)[j].move((j * tam * 4) + tam * 2, i * tam * 3);
 				}
 			}
 		}
 
 	}
 
-	public Color stringToColor(String arg) {
-		Color color = null;
-		try {
-			Field field = Class.forName("java.awt.Color").getField(arg.toLowerCase());
-			color = (Color) field.get(null);
-		} catch (Exception e) {
-		}
-		return color;
-	}
-
-	public void changeColor(Color c) {
-
+	public void changeColor(int x,int y) {
+		land.get(x)[y].visited();
 	}
 }
 
@@ -82,14 +68,17 @@ class Cube {
 	public Polygon[] edges;
 	public Color[] colors;
 
-	public Cube(int tam, Color[] colors) {
-		int[] numbers=new int[5];
-		numbers[0]=0;
-		for (int i=1;i<5;i++)
-			numbers[i]=tam*i;
-		if (colors != null)
-			this.colors = colors;
-		else
+	public Cube(int tam, String[] colors) {
+		int[] numbers = new int[5];
+		this.colors = new Color[5];
+		numbers[0] = 0;
+		for (int i = 1; i < 5; i++)
+			numbers[i] = tam * i;
+		if (colors != null) {
+			for (int i = 0; i < 4; i++) {
+				this.colors[i]=stringToColor(colors[i]);
+			}
+		} else
 			this.colors = new Color[] { Color.BLACK, Color.BLACK, Color.black, Color.BLACK };
 		edges = new Polygon[3];
 		edges[0] = new Polygon(new int[] { numbers[0], numbers[2], numbers[4], numbers[2] },
@@ -102,17 +91,24 @@ class Cube {
 				new int[] { numbers[1], numbers[2], numbers[4], numbers[3] }, 4);
 	}
 
+	public Color stringToColor(String arg) {
+		Color color = null;
+		try {
+			Field field = Class.forName("java.awt.Color").getField(arg);
+			color = (Color) field.get(null);
+		} catch (Exception e) {
+		}
+		return color;
+	}
+
+	public void visited() {
+		colors[0] = colors[3];
+
+	}
+
 	public void move(int x, int y) {
 		for (Polygon pol : edges) {
-			pol.translate(x , y );
-		}
-	}
-	public void zoom(int z){
-		for (Polygon pol : edges) {
-			for(int i :pol.xpoints)
-				i+=z;
-			for(int j :pol.xpoints)
-				j+=z;
+			pol.translate(x, y);
 		}
 	}
 
