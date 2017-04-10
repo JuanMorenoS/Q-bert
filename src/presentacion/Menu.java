@@ -20,7 +20,7 @@ public class Menu extends JFrame {
 	private JMenuItem save;
 	private JMenuItem exit;
 	/* Botones */
-	private JButton setNames;
+	private JButton play;
 	/**/
 	private JPanel panelStart;
 	private JPanel cuerpo;
@@ -47,7 +47,7 @@ public class Menu extends JFrame {
 		preparecuerpo();
 		add(cuerpo, BorderLayout.CENTER);
 		prepareStart();
-		add(setNames, BorderLayout.SOUTH);
+		add(play, BorderLayout.SOUTH);
 
 	}
 
@@ -88,8 +88,8 @@ public class Menu extends JFrame {
 		// panelBoton.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5,
 		// 5),new TitledBorder("juego")));
 		panelStart.setLayout(new FlowLayout());
-		setNames = new JButton("Play");
-		panelStart.add(setNames);
+		play = new JButton("Play");
+		panelStart.add(play);
 	}
 
 	private void centre() {
@@ -113,7 +113,7 @@ public class Menu extends JFrame {
 
 			}
 		});
-		setNames.addActionListener(new ActionListener() {
+		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				accionStart();
 			}
@@ -130,7 +130,10 @@ public class Menu extends JFrame {
 	}
 
 	private void accionStart() {
-		this.setVisible(false);
+		setVisible(false);
+		PoobertGUI vis = new PoobertGUI();
+		vis.setVisible(true);
+		//System.exit(0);
 	}
 
 	/* menu */

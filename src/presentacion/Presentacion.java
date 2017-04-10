@@ -21,7 +21,7 @@ public class Presentacion extends JFrame {
 	private JPanel panelBoton;
 	private JPanel panelDescripcion;
 	private JPanel footer;
-	/*Botones*/
+	/*Botones*/	
 	private JButton botonStart;
 	private BufferedImage imagen;
 	
@@ -42,7 +42,7 @@ public class Presentacion extends JFrame {
 		getContentPane().setBackground(Color.BLACK);
 		setResizable(false);
 		centre();
-		elementosBoton();		
+		elementosBoton();
 		prepareCentro();
 		prepareDescripcion();
 		add(footer,BorderLayout.SOUTH);
