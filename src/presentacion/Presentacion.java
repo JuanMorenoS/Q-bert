@@ -23,8 +23,6 @@ public class Presentacion extends JFrame {
 	private JPanel footer;
 	/*Botones*/	
 	private JButton botonStart;
-	private BufferedImage imagen;
-	
 	private Presentacion() {
 		super();
 		prepareElementos();

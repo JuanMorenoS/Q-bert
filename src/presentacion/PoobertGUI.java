@@ -22,33 +22,40 @@ public class PoobertGUI extends JFrame {
 		setLayout(new BorderLayout());
 		prepareElementos();
 		prepareAcciones();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
 	private void prepareAcciones() {
-		setTitle("Poo*Bert");
-		setSize(600, 600);
-		centre();
 	}
 
 	private void prepareElementos() {
-		try {
-			leerNivel();
-		} catch (IOException e) {
-		}
+			try {
+				leerNivel();
+			} catch (IOException e) {
+			}
 		add(tablero, BorderLayout.CENTER);
 	}
 
 	private void leerNivel() throws IOException {
+		int zoom=20 *3;
 		BufferedReader in;
 		in = new BufferedReader(new FileReader("resources/Levels/1.level"));
-		tablero = new UltraPanel(this, in.readLine(),in.readLine(), 10);
+		setTitle("Poo*Bert");
 		int a=Integer.parseInt(in.readLine());
+		int b=Integer.parseInt(in.readLine());
+		setSize(b*zoom,a*zoom);
+		centre();
+		tablero = new UltraPanel(this, in.readLine(),in.readLine(),zoom/3);
 		for(int i=0;i<a;i++){
 			int q=0;
 			for(char j:in.readLine().toCharArray()){
-				if(j!='X' && j!='x')
+				
+				if(j!='x')
 					tablero.add(i,q);
-				q++;
+					if(j=='Q')
+						tablero.setPlayer1(i,q);
+				if (j!='*')
+					q++;
 			}
 		}
 		in.close();

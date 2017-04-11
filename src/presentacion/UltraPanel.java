@@ -6,11 +6,17 @@ package presentacion;
 import java.util.*;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.lang.reflect.Field;
+import java.security.Key;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.RepaintManager;
+import javax.swing.Timer;
 
 import java.awt.*;
 
@@ -18,11 +24,13 @@ import java.awt.*;
  * @author blackphantom
  *
  */
-public class UltraPanel extends JPanel {
+public class UltraPanel extends JPanel implements ActionListener,KeyListener{
+	private Timer time = new Timer(5, this);
 	private ArrayList<Cube[]> land;
 	private String[] color;
 	private int tam;
-
+	private Player qbert;
+	
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);
 		super.paintComponent(g);
@@ -34,13 +42,18 @@ public class UltraPanel extends JPanel {
 				}
 			}
 		}
-		
+		g.drawImage(qbert.getDraw(), qbert.x, qbert.y, null);
 	}
 
 	public UltraPanel(JFrame god, String in, String fi, int x) {
+		time.start();
+		addKeyListener(this);
+		setFocusable(true);
+		setFocusTraversalKeysEnabled(false);
 		tam = x;
 		color = new String[] { in, "lightGray", "darkGray", fi };
 		tablero();
+		qbert = new Player(0,0);
 	}
 
 	public void add(int x, int y) {
@@ -71,58 +84,37 @@ public class UltraPanel extends JPanel {
 			}
 		}
 	}
-}
 
-class Cube {
-	public Polygon[] edges;
-	public Color[] colors;
-
-	public Cube(int tam, String[] colors) {
-		int[] numbers = new int[5];
-		numbers[0] = 0;
-		setColors(colors);
-		for (int i = 1; i < 5; i++)
-			numbers[i] = tam * i;
-		edges = new Polygon[3];
-		edges[0] = new Polygon(new int[] { numbers[0], numbers[2], numbers[4], numbers[2] },
-				new int[] { numbers[1], numbers[2], numbers[1], numbers[0] }, 4);
-
-		edges[1] = new Polygon(new int[] { numbers[0], numbers[2], numbers[2], numbers[0] },
-				new int[] { numbers[1], numbers[2], numbers[4], numbers[3] }, 4);
-
-		edges[2] = new Polygon(new int[] { numbers[4], numbers[2], numbers[2], numbers[4] },
-				new int[] { numbers[1], numbers[2], numbers[4], numbers[3] }, 4);
+	public void actionPerformed(ActionEvent e) {
+		repaint();		
 	}
 
-	public Color stringToColor(String arg) {
-		Color color = null;
-		try {
-			Field field = Class.forName("java.awt.Color").getField(arg);
-			color = (Color) field.get(null);
-		} catch (Exception e) {
+	public void keyTyped(KeyEvent e) {
+		
+	}
+	public void keyPressed(KeyEvent e) {
+		int key = e.getKeyCode();
+		if(key == 103){
+			qbert.move(-1,-1);
 		}
-		return color;
-	}
-
-	public void visited() {
-		colors[0] = colors[3];
-
-	}
-
-	public void move(int x, int y) {
-		for (Polygon pol : edges) {
-			pol.translate(x, y);
+		if(key == 105){
+			qbert.move(1,-1);
+		}
+		if(key == 97){
+			qbert.move(-1,1);
+		}
+		if(key == 99){
+			qbert.move(1,1);
 		}
 	}
 
-	public void setColors(String[] colors) {
-		this.colors = new Color[5];
-		if (colors != null) {
-			for (int i = 0; i < 4; i++) {
-				this.colors[i] = stringToColor(colors[i]);
-			}
-		} else
-			this.colors = new Color[] { Color.BLACK, Color.BLACK, Color.black, Color.BLACK };
+	public void keyReleased(KeyEvent e) {
+		
 	}
 
+	public void setPlayer1(int i, int q) {
+		int [] temo = land.get(i)[q].getCords();
+		qbert.move(temo[0], temo[1]);
+	}
 }
+
