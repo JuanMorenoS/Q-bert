@@ -27,6 +27,7 @@ public class Menu extends JFrame {
 	private JPanel nameSpace;
 	private JRadioButton human;
 	private JRadioButton machine;
+	private JRadioButton onePlayer;
 	private ButtonGroup group;
 	private JTextField player1;
 	private JTextField player2;
@@ -57,16 +58,20 @@ public class Menu extends JFrame {
 				new TitledBorder("<html><font color='white'> Game Options:<font></html>")));
 		cuerpo.setBackground(Color.BLACK);
 		cuerpo.setLayout(new GridLayout(7,1));
+		onePlayer = new JRadioButton("<html><font color='white'> Only 1 Player<font></html>");
 		human = new JRadioButton("<html><font color='white'> Human vs Human<font></html>");
 		machine = new JRadioButton("<html><font color='white'> Human vs Machine<font></html>");
 		human.setBackground(Color.black);
 		machine.setBackground(Color.black);
+		onePlayer.setBackground(Color.black);
+		cuerpo.add(onePlayer,false);
 		cuerpo.add(human, true);
 		cuerpo.add(machine, false);
 		group = new ButtonGroup();
+		group.add(onePlayer );
 		group.add(human);
 		group.add(machine);
-		human.setSelected(true);
+		onePlayer.setSelected(true);
 		player1 = new JTextField(10);
 		player2 = new JTextField(10);
 		nameSpace= new JPanel();
@@ -131,11 +136,15 @@ public class Menu extends JFrame {
 
 	private void accionStart() {
 		setVisible(false);
-		PoobertGUI vis = new PoobertGUI();
+		PoobertGUI vis = new PoobertGUI(this);
 		vis.setVisible(true);
-		//System.exit(0);
 	}
-
+	public String getPlayer1Name(){
+		return player1.getText();
+	}
+	public String getPlayer2Name(){
+		return player2.getText();
+	}
 	/* menu */
 	private void prepareMenuPrincipal() {
 		menu = new JMenuBar();
