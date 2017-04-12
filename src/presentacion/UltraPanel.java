@@ -4,7 +4,7 @@
 package presentacion;
 
 import java.util.*;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.RepaintManager;
 import javax.swing.Timer;
 
-import java.awt.*;
 
 /**
  * @author blackphantom
@@ -42,8 +41,7 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 				}
 			}
 		}
-		g.drawImage(qbert.getDraw(), qbert.x, qbert.y, null);
-		
+		g.drawImage(qbert.getDraw(), qbert.x, qbert.y, null);		
 	}
 
 	public UltraPanel(int b,JFrame god, String in, String fi, int x) {
