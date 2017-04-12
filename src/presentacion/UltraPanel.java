@@ -61,7 +61,9 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 	}
 
 	public void changeColor(int x, int y) {
-		land.get(x)[y].visited();
+		if (!land.get(x)[y].visited())
+			qbert.lose('F');
+		
 	}
 
 	private void tablero(int b) {
@@ -99,23 +101,23 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == 103){
-			qbert.move('L','U');
+			qbert.move("L","U");
 		}
 		if(key == 105){
-			qbert.move('R','U');
+			qbert.move("R","U");
 		}
 		if(key == 97){
-			qbert.move('L','D');
+			qbert.move("L","D");
 		}
 		if(key == 99){
-			qbert.move('R','D');
+			qbert.move("R","D");
 		}
 		changeColor(qbert.cy, qbert.cx);
 	}
 
-	public void setPlayer1(int i, int q) {
+	public void setPlayer1(int i, int q,String name) {
 		int [] temo = land.get(i)[q].getCords();
-		qbert = new Player(temo[0], temo[1],tam,q,i);
+		qbert = new Player(temo[0], temo[1],tam,q,i,name);
 	}
 }
 

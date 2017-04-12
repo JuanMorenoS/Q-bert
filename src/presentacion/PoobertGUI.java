@@ -16,14 +16,16 @@ import javax.swing.*;
  */
 public class PoobertGUI extends JFrame {
 	private UltraPanel tablero;
-
-	public PoobertGUI() {
+	private Menu father;
+	public PoobertGUI(Menu god) {
 		super();
+		father=god;
 		setLayout(new BorderLayout());
 		prepareElementos();
 		prepareAcciones();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
+
 
 	private void prepareAcciones() {
 	}
@@ -37,7 +39,7 @@ public class PoobertGUI extends JFrame {
 	}
 
 	private void leerNivel() throws IOException {
-		int zoom=15 *3;
+		int zoom=25 *3;
 		BufferedReader in;
 		in = new BufferedReader(new FileReader("resources/Levels/1.level"));
 		setTitle("Poo*Bert");
@@ -52,7 +54,7 @@ public class PoobertGUI extends JFrame {
 				if(j!='x')
 					tablero.add(i,q);
 					if(j=='Q')
-						tablero.setPlayer1(i,q);
+						tablero.setPlayer1(i,q,father.getPlayer1Name());
 				if (j!='*')
 					q++;
 			}

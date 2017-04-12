@@ -42,11 +42,10 @@ public class Cube {
 		return color;
 	}
 
-	public void visited() {
+	public boolean visited() {
 		if(!evil)
 			colors[0] = colors[3];
-		else
-			System.out.println("Lose");
+		return !evil?true:false;
 	}
 
 	public void move(int x, int y) {
