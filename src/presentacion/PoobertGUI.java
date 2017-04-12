@@ -37,7 +37,7 @@ public class PoobertGUI extends JFrame {
 	}
 
 	private void leerNivel() throws IOException {
-		int zoom=20 *3;
+		int zoom=15 *3;
 		BufferedReader in;
 		in = new BufferedReader(new FileReader("resources/Levels/1.level"));
 		setTitle("Poo*Bert");
@@ -45,11 +45,10 @@ public class PoobertGUI extends JFrame {
 		int b=Integer.parseInt(in.readLine());
 		setSize(b*zoom,a*zoom);
 		centre();
-		tablero = new UltraPanel(this, in.readLine(),in.readLine(),zoom/3);
+		tablero = new UltraPanel(b,this, in.readLine(),in.readLine(),zoom/3);
 		for(int i=0;i<a;i++){
 			int q=0;
 			for(char j:in.readLine().toCharArray()){
-				
 				if(j!='x')
 					tablero.add(i,q);
 					if(j=='Q')
