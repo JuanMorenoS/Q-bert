@@ -48,7 +48,7 @@ public class PoobertGUI extends JFrame {
 		tablero = new UltraPanel(b,this, in.readLine(),in.readLine(),zoom/3);
 		for(int i=0;i<a;i++){
 			int q=0;
-			for(char j:in.readLine().toCharArray()){
+			for(char j:in.readLine().toCharArray()){ 
 				if(j!='x')
 					tablero.add(i,q);
 					if(j=='Q')

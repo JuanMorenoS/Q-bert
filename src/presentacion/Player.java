@@ -27,7 +27,7 @@ public class Player  {
 	private ImageIcon image;
 	private Image a;
 	private int size;
-	private String name;
+	private String name; 
 	public Player(int posx, int posy,int tam,int cx,int cy){
 		size = tam;
 		image = new ImageIcon("resources/qbert.png");
