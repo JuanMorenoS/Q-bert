@@ -43,36 +43,36 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 			}
 		}
 		g.drawImage(qbert.getDraw(), qbert.x, qbert.y, null);
+		
 	}
 
-	public UltraPanel(JFrame god, String in, String fi, int x) {
+	public UltraPanel(int b,JFrame god, String in, String fi, int x) {
 		time.start();
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		tam = x;
 		color = new String[] { in, "lightGray", "darkGray", fi };
-		tablero();
-		qbert = new Player(0,0);
+		tablero(b);
 	}
 
 	public void add(int x, int y) {
-		land.get(x)[y].setColors(color);
+		land.get(x)[y].setColors(color,false);
 	}
 
 	public void changeColor(int x, int y) {
 		land.get(x)[y].visited();
 	}
 
-	private void tablero() {
+	private void tablero(int b) {
 		land = new ArrayList<>();
-		for (int i = 0; i < (tam * 4); i++) {
+		for (int i = 0; i < b; i++) {
 			if (i % 2 == 0)
-				land.add(new Cube[(tam * 4)]);
+				land.add(new Cube[b]);
 			else
-				land.add(new Cube[((tam * 4)) - 1]);
+				land.add(new Cube[(b)]);
 		}
-		for (int i = 0; i < (tam * 4); i++) {
+		for (int i = 0; i < b; i++) {
 			for (int j = 0; j < land.get(i).length; j++) {
 				if (i % 2 == 0) {
 					land.get(i)[j] = (new Cube(tam, null));
@@ -93,28 +93,29 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 		
 	}
 	public void keyPressed(KeyEvent e) {
+		
+	}
+	
+	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == 103){
-			qbert.move(-1,-1);
+			qbert.move('L','U');
 		}
 		if(key == 105){
-			qbert.move(1,-1);
+			qbert.move('R','U');
 		}
 		if(key == 97){
-			qbert.move(-1,1);
+			qbert.move('L','D');
 		}
 		if(key == 99){
-			qbert.move(1,1);
+			qbert.move('R','D');
 		}
-	}
-
-	public void keyReleased(KeyEvent e) {
-		
+		changeColor(qbert.cy, qbert.cx);
 	}
 
 	public void setPlayer1(int i, int q) {
 		int [] temo = land.get(i)[q].getCords();
-		qbert.move(temo[0], temo[1]);
+		qbert = new Player(temo[0], temo[1],tam,q,i);
 	}
 }
 
