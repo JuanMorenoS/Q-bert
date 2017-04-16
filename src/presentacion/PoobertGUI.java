@@ -39,9 +39,9 @@ public class PoobertGUI extends JFrame {
 	}
 
 	private void leerNivel() throws IOException {
-		int zoom=25 *3;
+		int zoom=20 *3;
 		BufferedReader in;
-		in = new BufferedReader(new FileReader("resources/Levels/1.level"));
+		in = new BufferedReader(new FileReader("resources/Levels/2.level"));
 		setTitle("Poo*Bert");
 		int a=Integer.parseInt(in.readLine());
 		int b=Integer.parseInt(in.readLine());
