@@ -29,6 +29,7 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 	private String[] color;
 	private int tam;
 	private Player[] players;
+	private PoobertGUI father;
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);
 		super.paintComponent(g);
@@ -43,8 +44,9 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 		for (Player qbert:players) if(qbert!=null) g.drawImage(qbert.getDraw(), qbert.x, qbert.y, null);		
 	}
 
-	public UltraPanel(int b,JFrame god, String in, String fi, int x) {
+	public UltraPanel(int b,PoobertGUI god, String in, String fi, int x) {
 		time.start();
+		father=god;
 		players=new Player[2];
 		addKeyListener(this);
 		setFocusable(true);
@@ -114,19 +116,19 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 			players[0].move("R","D");
 			changeColor(players[0].cy, players[0].cx);
 		}
-		if(key == 81){
+		if(key == 81 && father.getSelection()!='C'){
 			players[1].move("L","U");
 			changeColor(players[1].cy, players[1].cx);
 		}
-		if(key == 87){
+		if(key == 87 && father.getSelection()!='C'){
 			players[1].move("R","U");
 			changeColor(players[1].cy, players[1].cx);
 		}
-		if(key == 65){
+		if(key == 65 && father.getSelection()!='C'){
 			players[1].move("L","D");
 			changeColor(players[1].cy, players[1].cx);
 		}
-		if(key == 83){
+		if(key == 83 && father.getSelection()!='C'){
 			players[1].move("R","D");
 			changeColor(players[1].cy, players[1].cx);
 		}

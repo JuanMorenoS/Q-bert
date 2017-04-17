@@ -70,5 +70,8 @@ public class PoobertGUI extends JFrame {
 		int yEsquina = (screen.height - getSize().height) / 2;
 		setLocation(xEsquina, yEsquina);
 	}
+	public char getSelection(){
+		return father.getSelection();
+	}
 
 }
