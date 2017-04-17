@@ -63,11 +63,17 @@ public class Presentacion extends JFrame {
 		panelImagen = new JPanel();
 		panelImagen.setBackground(Color.black);
 		panelImagen.setLayout(new FlowLayout());
-		ImageIcon imagen = new ImageIcon("resources/Pbert-2.jpg");
-		Image scaleimage =imagen.getImage().getScaledInstance(getWidth(),(getWidth()*imagen.getIconHeight())/imagen.getIconWidth(), Image.SCALE_SMOOTH);
-		imagen = new ImageIcon(scaleimage);
-		JLabel label = new JLabel("", imagen, JLabel.CENTER);
-		panelImagen.add(label, BorderLayout.CENTER);
+		JLabel image1 = new JLabel("", getImageIcon("resources/Pbert-2.jpg",this,true), JLabel.CENTER);
+		JLabel image2 = new JLabel("", getImageIcon("resources/qbert-elements.jpg",this,false), JLabel.CENTER);
+		panelImagen.add(image1);
+		panelImagen.add(image2);
+	}
+	public static ImageIcon getImageIcon(String url,JFrame frame,boolean resize){
+		ImageIcon imagen = new ImageIcon(url);
+		if(resize){
+			Image scaleimage =imagen.getImage().getScaledInstance(frame.getWidth(),(frame.getWidth()*imagen.getIconHeight())/imagen.getIconWidth(), Image.SCALE_SMOOTH);
+			imagen = new ImageIcon(scaleimage);}
+		return imagen;
 	}
 	private void elementosBoton(){
 		panelBoton= new JPanel();
