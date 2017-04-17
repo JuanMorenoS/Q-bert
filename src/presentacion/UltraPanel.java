@@ -28,8 +28,7 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 	private ArrayList<Cube[]> land;
 	private String[] color;
 	private int tam;
-	private Player qbert;
-	
+	private Player[] players;
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);
 		super.paintComponent(g);
@@ -41,11 +40,12 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 				}
 			}
 		}
-		g.drawImage(qbert.getDraw(), qbert.x, qbert.y, null);		
+		for (Player qbert:players) if(qbert!=null) g.drawImage(qbert.getDraw(), qbert.x, qbert.y, null);		
 	}
 
 	public UltraPanel(int b,JFrame god, String in, String fi, int x) {
 		time.start();
+		players=new Player[2];
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
@@ -60,7 +60,7 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 
 	public void changeColor(int x, int y) {
 		if (!land.get(x)[y].visited())
-			qbert.lose('F');
+			players[0].lose('F');
 		
 	}
 
@@ -99,23 +99,46 @@ public class UltraPanel extends JPanel implements ActionListener,KeyListener{
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if(key == 103){
-			qbert.move("L","U");
+			players[0].move("L","U");
+			changeColor(players[0].cy, players[0].cx);
 		}
 		if(key == 105){
-			qbert.move("R","U");
+			players[0].move("R","U");
+			changeColor(players[0].cy, players[0].cx);
 		}
 		if(key == 97){
-			qbert.move("L","D");
+			players[0].move("L","D");
+			changeColor(players[0].cy, players[0].cx);
 		}
 		if(key == 99){
-			qbert.move("R","D");
+			players[0].move("R","D");
+			changeColor(players[0].cy, players[0].cx);
 		}
-		changeColor(qbert.cy, qbert.cx);
+		if(key == 81){
+			players[1].move("L","U");
+			changeColor(players[1].cy, players[1].cx);
+		}
+		if(key == 87){
+			players[1].move("R","U");
+			changeColor(players[1].cy, players[1].cx);
+		}
+		if(key == 65){
+			players[1].move("L","D");
+			changeColor(players[1].cy, players[1].cx);
+		}
+		if(key == 83){
+			players[1].move("R","D");
+			changeColor(players[1].cy, players[1].cx);
+		}
 	}
 
 	public void setPlayer1(int i, int q,String name) {
 		int [] temo = land.get(i)[q].getCords();
-		qbert = new Player(temo[0], temo[1],tam,q,i,name);
+		players[0] = new Player(temo[0], temo[1],tam,q,i,name,'n');
+	}
+	public void setPlayer2(int i, int q,String name) {
+		int [] temo = land.get(i)[q].getCords();
+		players[1] = new Player(temo[0], temo[1],tam,q,i,name,'b');
 	}
 }
 

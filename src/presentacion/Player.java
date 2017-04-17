@@ -20,8 +20,9 @@ public class Player {
 	private int size;
 	private String name;
 	private int lives;
-
-	public Player(int posx, int posy, int tam, int cx, int cy, String name) {
+	private char color;
+	public Player(int posx, int posy, int tam, int cx, int cy, String name,char col) {
+		color=col;
 		origen = new int[] { posx - (size * 3) / 2, posy - size * 3, cx, cy };
 		this.name = name;
 		lives = 3;
@@ -76,7 +77,7 @@ public class Player {
 	}
 
 	private void refresImage(String b,String a) {
-		image = new ImageIcon("resources/qbert-"+b+a+".png");
+		image = new ImageIcon("resources/qbert"+color+"-"+b+a+".png");
 		this.representation = image.getImage().getScaledInstance(size * 3, size * 3, Image.SCALE_DEFAULT);		
 	}
 

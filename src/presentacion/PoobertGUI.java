@@ -55,6 +55,8 @@ public class PoobertGUI extends JFrame {
 					tablero.add(i,q);
 					if(j=='Q')
 						tablero.setPlayer1(i,q,father.getPlayer1Name());
+					if(j=='P' && father.getSelection()!='1')
+						tablero.setPlayer2(i,q,father.getPlayer2Name());
 				if (j!='*')
 					q++;
 			}

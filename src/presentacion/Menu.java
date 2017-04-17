@@ -49,6 +49,7 @@ public class Menu extends JFrame {
 		add(cuerpo, BorderLayout.CENTER);
 		prepareStart();
 		add(play, BorderLayout.SOUTH);
+		
 
 	}
 
@@ -151,7 +152,16 @@ public class Menu extends JFrame {
 		prepareMenuSecundario();
 		menu.add(men);
 	}
-
+	public char getSelection(){
+		char res;
+		if(onePlayer.isSelected())
+			res='1';
+		else if(human.isSelected())
+			res='2';
+		else
+			res='C';
+		return res;
+	}
 	private void prepareMenuSecundario() {
 		men = new JMenu("Menu");
 		restart = new JMenuItem("Restart");
