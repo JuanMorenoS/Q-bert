@@ -1,14 +1,13 @@
 machine:
   java:
     version: openjdk8
-  services:
-    - docker
   
 general:
   branches:
     only:
       - master
-          
+compile:
+   - javac -d bin/ -cp src:.:junit-4.12.jar src/test/*.java  
 test:
   override:
     - java -cp bin:.:junit-4.12.jar:hamcrest-core-1.3.jar org.junit.runner.JUnitCore test.CubeTest
