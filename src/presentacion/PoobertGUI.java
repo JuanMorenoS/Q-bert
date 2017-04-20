@@ -10,11 +10,14 @@ import java.awt.Toolkit;
 import java.io.*;
 import javax.swing.*;
 
+import aplicacion.Poobert;
+
 /**
  * @author blackphantom
  *
  */
 public class PoobertGUI extends JFrame {
+	private Poobert logical;
 	private UltraPanel tablero;
 	private Menu father;
 	public PoobertGUI(Menu god) {
