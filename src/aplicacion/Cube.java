@@ -1,7 +1,7 @@
 /**
  * 
  */
-package presentacion;
+package aplicacion;
 
 import java.awt.Color;
 import java.awt.Polygon;

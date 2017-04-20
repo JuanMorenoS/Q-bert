@@ -1,7 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
-
+import aplicacion.*;
 import org.junit.Assert;
 import org.junit.Test;
 

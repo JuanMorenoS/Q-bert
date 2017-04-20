@@ -18,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.RepaintManager;
 import javax.swing.Timer;
 
+import aplicacion.Cube;
+import aplicacion.Player;
+
 
 /**
  * @author blackphantom
