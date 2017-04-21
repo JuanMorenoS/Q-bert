@@ -17,8 +17,7 @@ import aplicacion.Poobert;
  *
  */
 public class PoobertGUI extends JFrame {
-	private Poobert logical;
-	private UltraPanel tablero;
+	private Drawer tablero;
 	private Menu father;
 	public PoobertGUI(Menu god) {
 		super();
@@ -34,38 +33,11 @@ public class PoobertGUI extends JFrame {
 	}
 
 	private void prepareElementos() {
-			try {
-				leerNivel();
-			} catch (IOException e) {
-			}
-		add(tablero, BorderLayout.CENTER);
+			setTitle("Poo*Bert");
+			add(tablero=new Drawer(this), BorderLayout.CENTER);
+			centre();
 	}
 
-	private void leerNivel() throws IOException {
-		int zoom=20 *3;
-		BufferedReader in;
-		in = new BufferedReader(new FileReader("resources/Levels/2.level"));
-		setTitle("Poo*Bert");
-		int a=Integer.parseInt(in.readLine());
-		int b=Integer.parseInt(in.readLine());
-		setSize(b*zoom,a*zoom);
-		centre();
-		tablero = new UltraPanel(b,this, in.readLine(),in.readLine(),zoom/3);
-		for(int i=0;i<a;i++){
-			int q=0;
-			for(char j:in.readLine().toCharArray()){ 
-				if(j!='x')
-					tablero.add(i,q);
-					if(j=='Q')
-						tablero.setPlayer1(i,q,father.getPlayer1Name());
-					if(j=='P' && father.getSelection()!='1')
-						tablero.setPlayer2(i,q,father.getPlayer2Name());
-				if (j!='*')
-					q++;
-			}
-		}
-		in.close();
-	}
 
 	private void centre() {
 		Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
@@ -76,5 +48,11 @@ public class PoobertGUI extends JFrame {
 	public char getSelection(){
 		return father.getSelection();
 	}
-
+	public String getPlayer1Name() {
+		return father.getPlayer1Name();
+	}
+	public String getPlayer2Name() {
+		return father.getPlayer1Name();
+	}
+	
 }
