@@ -10,9 +10,9 @@ Propuesta: **Juan Moreno - Daniel Beltrán**
 **MEGA Q\*BERT- ARCADE**
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------------
-  Q\*bert es un videojuego de arcade desarrollado y publicado por Gottlieb en 1982. Es un juego de plataformas con gráficos en dos dimensiones.                                                                       > ![](media/image1.png){width="3.1145833333333335in" height="2.1225688976377954in"}
-                                                                                                                                                                                                                      >
-  El objetivo es cambiar el color de todos los cubos de un escenario haciendo que el protagonista salte encima de cada cubo mientras evita obstáculos y enemigos. Cuenta con ayudas para poder superar los niveles.   > ![](media/image2.jpg){width="3.1163199912510935in" height="2.337240813648294in"}
+  Q\*bert es un videojuego de arcade desarrollado y publicado por Gottlieb en 1982. Es un juego de plataformas con gráficos en dos dimensiones.                                                                       > ![Alt text](https://img1.etsystatic.com/110/0/11719466/il_570xN.904187939_jkyu.jpg "Optional title")
+                                                                                                                                                                                         >
+  El objetivo es cambiar el color de todos los cubos de un escenario haciendo que el protagonista salte encima de cada cubo mientras evita obstáculos y enemigos. Cuenta con ayudas para poder superar los niveles.   > 
                                                                                                                                                                                                                       
   A pesar de que la versión original es para un solo jugador, nos vamos a enfocar en la versión *“Mega Q\*Bert”* que consiste en la misma dinámica, pero multijugador. El jugador que tenga más puntaje gana.         
                                                                                                                                                                                                                       
@@ -28,7 +28,7 @@ Propuesta: **Juan Moreno - Daniel Beltrán**
 []{#_gjdgxs .anchor}**Poo\*Bert**
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------------------------
-  Para ser el vencedor del tablero los Q\*berts tendrán que luchar entre sí para demostrar quien es mejor jugador, contarán con poderes de ofensiva y defensiva que les permite atacarse y atacar a sus enemigos, los cuales aparecen en el tablero de manera aleatoria, también sus enemigos mutaron y tienen nuevos poderes complicando más el juego.   > ![](media/image3.jpg){width="2.8125in" height="0.960764435695538in"}
+  Para ser el vencedor del tablero los Q\*berts tendrán que luchar entre sí para demostrar quien es mejor jugador, contarán con poderes de ofensiva y defensiva que les permite atacarse y atacar a sus enemigos, los cuales aparecen en el tablero de manera aleatoria, también sus enemigos mutaron y tienen nuevos poderes complicando más el juego.   >
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------------------------
 
 **Modos**
@@ -104,12 +104,7 @@ Requisitos funcionales:
 -   Los personajes tienen el nombre del jugador y al final de la partida
     se muestra el nombre con su respectivo puntaje
 
--   Los esenarios puden variar ejemplo:
-
-    ![](media/image4.png){width="2.1013888888888888in"
-    height="1.3376181102362206in"}
-    ![](media/image5.png){width="2.3710094050743655in"
-    height="1.350194663167104in"}
+-   Los esenarios puden variar.
 
 -   Existen al menos 2 tipos de dificultades.
 
