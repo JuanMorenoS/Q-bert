@@ -3,19 +3,14 @@
  */
 package presentacion;
 
-import java.util.*;
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.lang.reflect.Field;
-import java.security.Key;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.RepaintManager;
 import javax.swing.Timer;
 
 import aplicacion.Cube;
@@ -31,8 +26,6 @@ public class Drawer extends JPanel implements ActionListener,KeyListener{
 	private Timer time = new Timer(5, this);
 	private PoobertGUI father;
 	private Poobert logical;
-	
-	
 
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);

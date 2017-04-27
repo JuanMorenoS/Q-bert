@@ -25,7 +25,7 @@ Propuesta: **Juan Moreno - Daniel Beltrán**
   [*https://www.youtube.com/watch?v=Lud84VzDL7M*](https://www.youtube.com/watch?v=Lud84VzDL7M)                                                                                                                        
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------------------------------------------------------------------------------------
 
-[]{#_gjdgxs .anchor}**Poo\*Bert**
+**Poo\*Bert**
 
   ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ------------------------------------------------------------------------
   Para ser el vencedor del tablero los Q\*berts tendrán que luchar entre sí para demostrar quien es mejor jugador, contarán con poderes de ofensiva y defensiva que les permite atacarse y atacar a sus enemigos, los cuales aparecen en el tablero de manera aleatoria, también sus enemigos mutaron y tienen nuevos poderes complicando más el juego.   >
