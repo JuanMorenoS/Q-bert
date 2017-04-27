@@ -41,7 +41,7 @@ public class Cube {
 	 * @param arg la cadena 
 	 * @return el obejto color 
 	 */
-	public Color stringToColor(String arg) {
+	public static Color stringToColor(String arg) {
 		Color color = null;
 		try {
 			Field field = Class.forName("java.awt.Color").getField(arg);
@@ -87,7 +87,7 @@ public class Cube {
 	public void setColors(String[] colors,boolean bad) {
 		evil=bad;
 		this.colors = new Color[5];
-		if (colors != null) {
+		if (colors != null && !bad) {
 			for (int i = 0; i < 4; i++) {
 				this.colors[i] = stringToColor(colors[i]);
 			}

@@ -21,7 +21,7 @@ public class Player {
 	private String name;
 	private int lives;
 	private char color;
-
+	private String[] vis;
 	public Player(int posx, int posy, int tam, int cx, int cy, String name, char col) {
 		color = col;
 		origen = new int[] { posx - (size * 3) / 2, posy - size * 3, cx, cy };
@@ -32,7 +32,8 @@ public class Player {
 		y = posy - size * 3;
 		this.cx = cx;
 		this.cy = cy;
-		refresImage("D", "R");
+		vis=new String[]{"D", "R"};
+		refresImage();
 	}
 
 	/**
@@ -40,14 +41,16 @@ public class Player {
 	 * @param a el tipo de muerte que tiene el jugador
 	 */
 	public void lose(char a) {
-		if (a == 'F')
+		if (a == 'F'){
 			resetPosition();
-		lives--;
+		lives--;}
 		if (lives == 0) {
 			this.representation = null;
 			size = 0;
 		}
-		refresImage("D", "R");
+		vis[0]="D";
+		vis[1]="R";
+		refresImage();
 	}
 
 	/**
@@ -67,6 +70,8 @@ public class Player {
 	 * @return si fue posible moverlo ahi
 	 */
 	public boolean move(String a, String b) {
+		vis[0]=b;
+		vis[1]=a;
 		if (lives > 0) {
 			int velx = size * 2;
 			int vely = size * 3;
@@ -84,7 +89,7 @@ public class Player {
 				}
 				cy = (b.equals("U")) ? cy - 1 : cy + 1;
 			}
-			refresImage(b, a);
+			refresImage();
 			return true;
 		}
 		return false;
@@ -103,9 +108,15 @@ public class Player {
 	 * @param b vista en x
 	 * @param a vista en y
 	 */
-	private void refresImage(String b, String a) {
-		image = new ImageIcon("resources/qbert" + color + "-" + b + a + ".png");
+	private void refresImage() {
+		image = new ImageIcon("resources/qbert" + color + "-" + vis[0] + vis[1] + ".png");
 		this.representation = image.getImage().getScaledInstance(size * 3, size * 3, Image.SCALE_DEFAULT);
 	}
+
+	public int getLives() {
+		return lives;
+	}
+
+
 
 }
