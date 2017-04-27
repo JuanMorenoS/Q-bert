@@ -10,12 +10,12 @@ public class Poobert {
 	private String[] color;
 	private int tam;
 	private Player[] players;
-	private int level, xLevel, yLevel;
+	private int level, yLevel, xLevel;
 	private String[] playersNames;
 	private char selection;
 
 	public Poobert(String[] strings, char selection) {
-		level = 1;
+		level = 2;
 		players = new Player[2];
 		playersNames = strings;
 		this.selection = selection;
@@ -68,17 +68,17 @@ public class Poobert {
 	}
 
 	private void leerNivel(int le) throws IOException {
-		int zoom = 10 * 3;
+		int zoom = 20 * 3;
 		tam = zoom / 3;
 		BufferedReader in;
 		in = new BufferedReader(new FileReader("resources/Levels/" + le + ".level"));
-		xLevel = Integer.parseInt(in.readLine());
 		yLevel = Integer.parseInt(in.readLine());
+		xLevel = Integer.parseInt(in.readLine());
 		color = new String[] { in.readLine(), "lightGray", "darkGray", in.readLine() };
-		tablero(yLevel);
-		for (int i = 0; i < xLevel; i++) {
+		tablero(xLevel);
+		for (int i = 0; i < yLevel; i++) {
 			int q = 0;
-			for (char j : in.readLine().toCharArray()) {
+			for (char j : in.readLine().trim().toCharArray()) {
 				if (j != 'x')
 					add(i, q);
 				if (j == 'Q')
@@ -111,10 +111,10 @@ public class Poobert {
 	}
 
 	public int getSizeX() {
-		return xLevel*tam*2+tam*10;
+		return tam*(yLevel*2+10);
 	}
 
 	public int getSizeY() {
-		return yLevel*tam*4+tam*2;
+		return tam*(xLevel*4+2);
 	}
 }

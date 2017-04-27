@@ -65,7 +65,8 @@ public class Cube {
 				this.colors[i] = stringToColor(colors[i]);
 			}
 		} else
-			this.colors = new Color[] { Color.black, Color.BLACK, Color.black, Color.black };
+			this.colors = new Color[] { Color.black
+					, Color.BLACK, Color.black, Color.black };
 	}
 
 }
