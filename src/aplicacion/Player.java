@@ -35,6 +35,10 @@ public class Player {
 		refresImage("D", "R");
 	}
 
+	/**
+	 * le quita vidas al jugador
+	 * @param a el tipo de muerte que tiene el jugador
+	 */
 	public void lose(char a) {
 		if (a == 'F')
 			resetPosition();
@@ -46,6 +50,9 @@ public class Player {
 		refresImage("D", "R");
 	}
 
+	/**
+	 * pone el jugador en la pos inicial
+	 */
 	private void resetPosition() {
 		x = origen[0] - (size * 3) / 2;
 		y = origen[1] - size * 3;
@@ -53,6 +60,12 @@ public class Player {
 		cy = origen[3];
 	}
 
+	/**
+	 * mueve el jugador 
+	 * @param a movimiento horizontal
+	 * @param b movimiento vertical 
+	 * @return si fue posible moverlo ahi
+	 */
 	public boolean move(String a, String b) {
 		if (lives > 0) {
 			int velx = size * 2;
@@ -77,10 +90,19 @@ public class Player {
 		return false;
 	}
 
+	/**
+	 * me da la imagen del personaje
+	 * @return la imagen del personaje en ese instante
+	 */
 	public Image getDraw() {
 		return representation;
 	}
 
+	/**
+	 * actualiza la imagen
+	 * @param b vista en x
+	 * @param a vista en y
+	 */
 	private void refresImage(String b, String a) {
 		image = new ImageIcon("resources/qbert" + color + "-" + b + a + ".png");
 		this.representation = image.getImage().getScaledInstance(size * 3, size * 3, Image.SCALE_DEFAULT);

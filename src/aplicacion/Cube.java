@@ -15,6 +15,10 @@ public class Cube {
 	public Polygon[] edges;
 	public Color[] colors;
 	private boolean evil;
+	/**
+	 * @param tam
+	 * @param colors
+	 */
 	public Cube(int tam, String[] colors) {
 		int[] numbers = new int[5];
 		numbers[0] = 0;
@@ -32,6 +36,11 @@ public class Cube {
 				new int[] { numbers[1], numbers[2], numbers[4], numbers[3] }, 4);
 	}
 
+	/**
+	 * convierte una cadena a color
+	 * @param arg la cadena 
+	 * @return el obejto color 
+	 */
 	public Color stringToColor(String arg) {
 		Color color = null;
 		try {
@@ -42,21 +51,39 @@ public class Cube {
 		return color;
 	}
 
+	/**
+	 * cambia el color del cubo cuando es visitado
+	 * @return si es un cubo de caida
+	 */
 	public boolean visited() {
 		if(!evil)
 			colors[0] = colors[3];
 		return !evil?true:false;
 	}
 
+	/**
+	 * ubica el cubo en la posicion x y y del canvas 
+	 * @param x la pos en x
+	 * @param y la pos en y
+	 */
 	public void move(int x, int y) {
 		for (Polygon pol : edges) {
 			pol.translate(x, y);
 		}
 	}
+	/**
+	 * da la posicion del cubo 
+	 * @return las cordenadas del cubo en el canvas
+	 */
 	public int[] getCords(){
 		return new int[] {edges[0].xpoints[1],edges[0].ypoints[0]};
 	}
 
+	/**
+	 * pone los colores a los cubos
+	 * @param colors un arerglo de colores cara de arriba 2 lados, y el color final 
+	 * @param bad si es un cuadro de caida o no
+	 */
 	public void setColors(String[] colors,boolean bad) {
 		evil=bad;
 		this.colors = new Color[5];
