@@ -2,7 +2,7 @@
  * 
  */
 package presentacion;
-
+import java.util.*;
 import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -42,6 +42,7 @@ public class Drawer extends JPanel implements ActionListener,KeyListener{
 	}
 
 	public Drawer(PoobertGUI god) {
+		
 		time.start();
 		father=god;
 		logical=new Poobert(new String[]{father.getPlayer1Name(),father.getPlayer2Name()},father.getSelection());
@@ -49,6 +50,25 @@ public class Drawer extends JPanel implements ActionListener,KeyListener{
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try{
+					while(true){
+						repaint();
+						Random x = new Random();
+						Random y = new Random();
+						String xx = x.nextBoolean()?"R":"L";
+						String yy = y.nextBoolean()?"U":"D";
+						logical.move2(xx,yy);
+						Thread.sleep(1000);
+					}
+				}
+				catch(Exception e){
+				}
+				
+			}
+		}).start();
 		
 	}
 
@@ -93,6 +113,5 @@ public class Drawer extends JPanel implements ActionListener,KeyListener{
 		}
 	}
 
-	
 }
 

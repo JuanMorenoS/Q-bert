@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Poobert {
 	private ArrayList<Cube[]> land;
@@ -13,7 +14,7 @@ public class Poobert {
 	private int level, yLevel, xLevel;
 	private String[] playersNames;
 	private char selection;
-
+	private char charLand [][];
 	public Poobert(String[] strings, char selection) {
 		level = 2;
 		players = new Player[2];
@@ -104,11 +105,13 @@ public class Poobert {
 		in = new BufferedReader(new FileReader("resources/Levels/" + le + ".level"));
 		yLevel = Integer.parseInt(in.readLine());
 		xLevel = Integer.parseInt(in.readLine());
+		charLand = new char[yLevel][xLevel];
 		color = new String[] { in.readLine(), "lightGray", "darkGray", in.readLine() };
 		tablero(xLevel);
 		for (int i = 0; i < yLevel; i++) {
 			int q = 0;
 			for (char j : in.readLine().trim().toCharArray()) {
+				charLand[i][q]=j;
 				if (j != 'x')
 					add(i, q);
 				if (j == 'Q')
@@ -120,6 +123,9 @@ public class Poobert {
 			}
 		}
 		in.close();
+		for(char[]a:charLand){
+			System.out.println(Arrays.toString(a));
+		}
 	}
 
 	/**

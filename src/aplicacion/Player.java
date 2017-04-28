@@ -26,7 +26,7 @@ public class Player {
 		color = col;
 		origen = new int[] { posx - (size * 3) / 2, posy - size * 3, cx, cy };
 		this.name = name;
-		lives = 3;
+		lives = 10;
 		size = tam;
 		x = posx - (size * 3) / 2;
 		y = posy - size * 3;

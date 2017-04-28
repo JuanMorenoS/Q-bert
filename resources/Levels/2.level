@@ -1,5 +1,5 @@
 9
-9
+10
 blue
 yellow
 xxxxxxxxxx
@@ -7,10 +7,13 @@ xxxxQxxxxx
 xxxxccxxxx
 xxxcccxxxx
 xxxccccxxx
-xxcccccxxx
-xxPcccccxx
+xxccPccxxx
+xxccccccxx
 xxcccccxxx
 xxxxxxxxxx
 
-
+y
+x
 //blue - orange - yellow - green - red - pink - white - grey - magenta - cyan - black - darkGrey - lightGray
+//blue - orange - yellow - green - red - pink - white - grey - magenta - cyan - black - darkGrey - lightGray
+land(x,y)
