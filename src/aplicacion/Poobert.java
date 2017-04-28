@@ -9,12 +9,13 @@ import java.util.Arrays;
 public class Poobert {
 	private ArrayList<Cube[]> land;
 	private String[] color;
-	private int tam;
+	private int size;
 	private Player[] players;
 	private int level, yLevel, xLevel;
 	private String[] playersNames;
 	private char selection;
-	private char charLand [][];
+	private char charLand[][];
+
 	public Poobert(String[] strings, char selection) {
 		level = 2;
 		players = new Player[2];
@@ -29,7 +30,9 @@ public class Poobert {
 
 	/**
 	 * genera el tablero dada el tamaño en x
-	 * @param b el tamaño en x del tablero
+	 * 
+	 * @param b
+	 *            el tamaño en x del tablero
 	 */
 	private void tablero(int b) {
 		land = new ArrayList<>();
@@ -42,11 +45,11 @@ public class Poobert {
 		for (int i = 0; i < b; i++) {
 			for (int j = 0; j < land.get(i).length; j++) {
 				if (i % 2 == 0) {
-					land.get(i)[j] = (new Cube(tam, null));
-					land.get(i)[j].move(j * tam * 4, i * tam * 3);
+					land.get(i)[j] = (new Cube(size, null));
+					land.get(i)[j].move(j * size * 4, i * size * 3);
 				} else {
-					land.get(i)[j] = (new Cube(tam, null));
-					land.get(i)[j].move((j * tam * 4) + tam * 2, i * tam * 3);
+					land.get(i)[j] = (new Cube(size, null));
+					land.get(i)[j].move((j * size * 4) + size * 2, i * size * 3);
 				}
 			}
 		}
@@ -54,8 +57,11 @@ public class Poobert {
 
 	/**
 	 * al cubo en la posicion x,y lo cambia a habitable
-	 * @param x pos x 
-	 * @param y pos y
+	 * 
+	 * @param x
+	 *            pos x
+	 * @param y
+	 *            pos y
 	 */
 	public void add(int x, int y) {
 		land.get(x)[y].setColors(color, false);
@@ -63,7 +69,9 @@ public class Poobert {
 
 	/**
 	 * cambia el color en la posicioin que le jugador esta
-	 * @param play el jugador 
+	 * 
+	 * @param play
+	 *            el jugador
 	 */
 	public void changeColor(Player play) {
 		if (!land.get(play.cy)[play.cx].visited())
@@ -72,35 +80,45 @@ public class Poobert {
 	}
 
 	/**
-	 * setea el jugador dado su posicion inicial, y nombre 
-	 * @param i pos en x
-	 * @param q pos rn y 
-	 * @param name nombre
+	 * setea el jugador dado su posicion inicial, y nombre
+	 * 
+	 * @param i
+	 *            pos en x
+	 * @param q
+	 *            pos rn y
+	 * @param name
+	 *            nombre
 	 */
 	public void setPlayer1(int i, int q, String name) {
 		int[] temo = land.get(i)[q].getCords();
-		players[0] = new Player(temo[0], temo[1], tam, q, i, name, 'n');
+		players[0] = new Player(temo[0], temo[1], size, q, i, name, 'n');
 	}
 
 	/**
-	 * setea el jugador dado su posicion inicial, y nombre 
-	 * @param i pos en x
-	 * @param q pos rn y 
-	 * @param name nombre
+	 * setea el jugador dado su posicion inicial, y nombre
+	 * 
+	 * @param i
+	 *            pos en x
+	 * @param q
+	 *            pos rn y
+	 * @param name
+	 *            nombre
 	 */
 	public void setPlayer2(int i, int q, String name) {
 		int[] temo = land.get(i)[q].getCords();
-		players[1] = new Player(temo[0], temo[1], tam, q, i, name, 'b');
+		players[1] = new Player(temo[0], temo[1], size, q, i, name, 'b');
 	}
 
 	/**
 	 * lee un mundo dado el nivel en numero
-	 * @param le el nivel 
-	 * @throws IOException 
+	 * 
+	 * @param le
+	 *            el nivel
+	 * @throws IOException
 	 */
 	private void leerNivel(int le) throws IOException {
 		int zoom = 20 * 3;
-		tam = zoom / 3;
+		size = zoom / 3;
 		BufferedReader in;
 		in = new BufferedReader(new FileReader("resources/Levels/" + le + ".level"));
 		yLevel = Integer.parseInt(in.readLine());
@@ -111,7 +129,7 @@ public class Poobert {
 		for (int i = 0; i < yLevel; i++) {
 			int q = 0;
 			for (char j : in.readLine().trim().toCharArray()) {
-				charLand[i][q]=j;
+				charLand[i][q] = j;
 				if (j != 'x')
 					add(i, q);
 				if (j == 'Q')
@@ -123,29 +141,36 @@ public class Poobert {
 			}
 		}
 		in.close();
-		for(char[]a:charLand){
-			System.out.println(Arrays.toString(a));
-		}
 	}
 
 	/**
-	 * mueve el jugador 1 
-	 * @param a en x
-	 * @param b en y
+	 * mueve el jugador 1
+	 * 
+	 * @param a
+	 *            en x
+	 * @param b
+	 *            en y
 	 */
 	public void move1(String a, String b) {
+		charLand[players[0].cy][players[0].cx]='c';
 		if (players[0].move(a, b))
 			changeColor(players[0]);
+		charLand[players[0].cy][players[0].cx]='Q';
 	}
 
 	/**
-	 * mueve el jugador 2 
-	 * @param a en x
-	 * @param b en y
+	 * mueve el jugador 2
+	 * 
+	 * @param a
+	 *            en x
+	 * @param b
+	 *            en y
 	 */
 	public void move2(String a, String b) {
+		charLand[players[1].cy][players[1].cx]='c';
 		if (players[1].move(a, b))
 			changeColor(players[1]);
+		charLand[players[1].cy][players[1].cx]='P';
 	}
 
 	/**
@@ -166,13 +191,21 @@ public class Poobert {
 	 * @return devuelve el tamaño que ocupa en x
 	 */
 	public int getSizeX() {
-		return tam*(yLevel*2+10);
+		return size * (yLevel * 2 + 10);
 	}
 
 	/**
 	 * @return devuelve el tamaño que ocupa en y
 	 */
 	public int getSizeY() {
-		return tam*(xLevel*4+2);
+		return size * (xLevel * 4 + 2);
+	}
+
+	/* debug */
+	public void printMat() {
+		for (char[] a : charLand) {
+			System.out.println(Arrays.toString(a));
+		}
+		System.out.println('\n');
 	}
 }
