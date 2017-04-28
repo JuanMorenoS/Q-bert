@@ -4,7 +4,6 @@
 package aplicacion;
 
 import java.awt.Image;
-import java.util.*;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,15 +15,16 @@ public class Player extends Mobile{
 	private ImageIcon image;
 	private Image representation;
 	private String name;
-	private int lives;
+	private int lives,size;
 	private char color;
 	private String[] vis;
 	public Player(int posx, int posy, int tam, int cx, int cy, String name, char col) {
-		super(posx, posy, cx, cy, tam);
+		super(posx, posy, cx, cy);
 		color = col;
 		origen = new int[] { posx - (size * 3) / 2, posy - size * 3, cx, cy };
 		this.name = name;
 		lives = 10;
+		size = tam;
 		x = posx - (size * 3) / 2;
 		y = posy - size * 3;
 		this.cx = cx;
@@ -113,7 +113,9 @@ public class Player extends Mobile{
 	public int getLives() {
 		return lives;
 	}
-
+	public String getName(){
+		return name;
+	}
 
 
 }
