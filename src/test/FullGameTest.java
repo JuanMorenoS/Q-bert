@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import java.awt.Color;
 
 import aplicacion.*;
+import presentacion.Cube;
+
 import org.junit.Assert;
 import org.junit.Test;
 
