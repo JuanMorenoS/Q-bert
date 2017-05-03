@@ -200,7 +200,19 @@ public class Poobert {
 	public int getSizeY() {
 		return size * (xLevel * 4 + 2);
 	}
-
+	public char getChar(int x,int y){
+		return charLand[y][x];
+	}
+	
+	public int getXLevel(){
+		return xLevel;
+	}
+	public int getYLevel(){
+		return yLevel;
+	}
+	public String[] getColor(){
+		return color;
+	}
 	/* debug */
 	public void printMat() {
 		for (char[] a : charLand) {
