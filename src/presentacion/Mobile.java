@@ -1,4 +1,4 @@
-package aplicacion;
+package presentacion;
 
 public abstract class Mobile{
 	protected int x, y, cx, cy;

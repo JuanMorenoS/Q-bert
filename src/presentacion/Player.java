@@ -1,7 +1,7 @@
 /**
  * 
  */
-package aplicacion;
+package presentacion;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
