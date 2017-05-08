@@ -1,9 +1,9 @@
 package logicalT;
 
-public abstract class Mobile {
+public abstract class Mobile{
 	protected int cx,cy;
 	public abstract String toString();
-	protected String dirx,diry;
+	protected String dirx,diry,name;
 	protected static Poobert logic;
 	public int[] Premove(String a, String b) {
 		int cxn,cyn;
@@ -29,7 +29,21 @@ public abstract class Mobile {
 		dirx=a;
 		diry=b;
 	}
+	public abstract String[] move();
+	
 	public static void setLogic(Poobert a){
 		logic=a;
+	}
+	public int[] getCoords(){
+		return new int[]{cx,cy};
+	}
+	public boolean equals(Mobile o){
+		return cx==o.getCx() && cy==o.getCy();
+	}
+	public String getDirx(){
+		return dirx;
+	}
+	public String getDiry(){
+		return diry;
 	}
 }

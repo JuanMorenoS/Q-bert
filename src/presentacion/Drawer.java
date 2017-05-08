@@ -48,8 +48,10 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 			for (int j = 0; j < xLevel; j++) {
 				if (!logic.getMobile(i, j).equals("0")) {
 					try {
-						g.drawImage(ImageIO.read(new File("resources/"+logic.getMobile(i, j)+".png")).getScaledInstance(size * 3,
-								size * 3, Image.SCALE_DEFAULT), realCoordX(i, j), realCoordY(i, j), null);
+						g.drawImage(
+								ImageIO.read(new File("resources/" + logic.getMobile(i, j) + ".png"))
+										.getScaledInstance(size * 3, size * 3, Image.SCALE_DEFAULT),
+								realCoordX(i, j), realCoordY(i, j), null);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -68,6 +70,19 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					while (true) {
+						logic.nextFrame();
+						Thread.sleep(500);
+					}
+				} catch (Exception e) {
+				}
+
+			}
+		}).start();
 	}
 
 	private int realCoordX(int i, int j) {
@@ -79,7 +94,6 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		int[] temo = land.get(i)[j].getCords();
 		return temo[1] - (size * 3);
 	}
-
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();
@@ -106,6 +120,9 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		}
 		if (key == 99) {
 			logic.movePlayer1("R", "D");
+		}
+		if (key == 32) {
+			logic.player1Attack();
 		}
 		if (father.getSelection() != 'C') {
 			if (key == 81) {

@@ -7,10 +7,14 @@ public class Human extends Player{
 		dirx="L";
 		diry="D";
 		color="n";
+		this.name=name;
 		
 	}
 	public String toString() {
 		return "qbert"+color+"-"+diry+dirx;
+	}
+	public void move() {
+		
 	}
 	
 
