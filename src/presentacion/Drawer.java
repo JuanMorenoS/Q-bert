@@ -6,6 +6,7 @@ package presentacion;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Field;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -20,22 +21,37 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 	private Timer time = new Timer(5, this);
 	private PoobertGUI father;
 	private Poobert logic;
+	private ArrayList<Cube[]> land;
+	private int size, xLevel, yLevel;
+	private String[] color;
 
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);
-		
+		super.paintComponent(g);
+		for (int i=0;i<yLevel;i++) {
+			for (int j=0;j<xLevel;j++) {
+				for (int k = 0; k < 3; k++) {
+					if(k==0)
+						g.setColor(stringToColor(logic.getStatic(i,j)));
+					else
+						g.setColor(land.get(i)[j].colors[k]);
+					g.fillPolygon(land.get(i)[j].edges[k]);
+				}
+			}
+		}
 	}
 
 	public Drawer(PoobertGUI god) {
-		time.start();
 		father = god;
-		logic = new Poobert(new String[] { father.getPlayer1Name(), father.getPlayer2Name() }, father.getSelection());
-		//father.setSize(logic.getSizeY(), logic.getSizeX());
+		time.start();
+		size = 20;
+		makePlaySpace();
+		father.setSize(size * (xLevel * 4 + 2), size * (yLevel * 2 + 10));
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 	}
-	
+
 	public void actionPerformed(ActionEvent e) {
 		repaint();
 	}
@@ -76,6 +92,63 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 				logic.movePlayer2("R", "D");
 			}
 		}
+		logic.printMats();
 	}
 
+	private void tablero(int b) {
+		land = new ArrayList<>();
+		for (int i = 0; i < b; i++) {
+			land.add(new Cube[b]);
+		}
+		for (int i = 0; i < b; i++) {
+			for (int j = 0; j < land.get(i).length; j++) {
+				if (i % 2 == 0) {
+					land.get(i)[j] = (new Cube(size, null));
+					land.get(i)[j].move(j * size * 4, i * size * 3);
+				} else {
+					land.get(i)[j] = (new Cube(size, null));
+					land.get(i)[j].move((j * size * 4) + size * 2, i * size * 3);
+				}
+			}
+		}
+	}
+
+	private void add(int x, int y) {
+		land.get(x)[y].setColors(color, false);
+	}
+
+	private void changeColor(Player play) {
+		if (!land.get(play.cy)[play.cx].visited())
+			play.lose('F');
+	}
+	
+	public static Color stringToColor(String arg) {
+		Color color = null;
+		try {
+			Field field = Class.forName("java.awt.Color").getField(arg);
+			color = (Color) field.get(null);
+		} catch (Exception e) {
+		}
+		return color;
+	}
+	
+	private void makePlaySpace(){
+		logic = new Poobert(new String[] { father.getPlayer1Name(), father.getPlayer2Name() }, father.getSelection());
+		xLevel = logic.getXLevel();
+		yLevel = logic.getYLevel();
+		color = logic.getColors();
+		tablero(xLevel);
+		for (int i = 0; i < yLevel; i++) {
+			for (int j = 0; j < xLevel; j++) {
+				if (!logic.getStatic(i, j).equals("black"))
+					add(i, j);
+			}
+		}
+		/*for (int i = 0; i < yLevel; i++) {
+			for (int j = 0; j < xLevel; j++) {
+				if (logic.getMobile(i, j).equals("c"))
+					add(i, j);
+			}
+		}*/
+	}
 }

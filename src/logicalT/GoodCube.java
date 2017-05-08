@@ -6,7 +6,7 @@ public class GoodCube extends Help{
 		colors = color;
 	}
 	public String toString() {
-		return "c";
+		return colors[0];
 	}
 
 }

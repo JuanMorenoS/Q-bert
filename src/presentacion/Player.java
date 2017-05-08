@@ -78,14 +78,6 @@ public class Player extends Mobile{
 				vely *= -1;
 			x += velx;
 			y += vely;
-			if (size != 0) {
-				if (cy % 2 != 0) {
-					cx = (a.equals("L")) ? cx : cx + 1;
-				} else {
-					cx = (a.equals("R")) ? cx : cx - 1;
-				}
-				cy = (b.equals("U")) ? cy - 1 : cy + 1;
-			}
 			refresImage();
 			return true;
 		}

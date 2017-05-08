@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Poobert {
-	private ArrayList<Cube[]> land;
 	private String[] color;
 	private int size;
 	private Player[] players;
@@ -46,10 +45,10 @@ public class Poobert {
 			for (int j = 0; j < land.get(i).length; j++) {
 				if (i % 2 == 0) {
 					land.get(i)[j] = (new Cube(size, null));
-					land.get(i)[j].move(j * size * 4, i * size * 3);
+					land.get(i)[j].Premove(j * size * 4, i * size * 3);
 				} else {
 					land.get(i)[j] = (new Cube(size, null));
-					land.get(i)[j].move((j * size * 4) + size * 2, i * size * 3);
+					land.get(i)[j].Premove((j * size * 4) + size * 2, i * size * 3);
 				}
 			}
 		}
@@ -73,11 +72,7 @@ public class Poobert {
 	 * @param play
 	 *            el jugador
 	 */
-	public void changeColor(Player play) {
-		if (!land.get(play.cy)[play.cx].visited())
-			play.lose('F');
-
-	}
+	
 
 	/**
 	 * setea el jugador dado su posicion inicial, y nombre
@@ -153,7 +148,7 @@ public class Poobert {
 	 */
 	public void move1(String a, String b) {
 		charLand[players[0].cy][players[0].cx]='c';
-		if (players[0].move(a, b))
+		if (players[0].Premove(a, b))
 			changeColor(players[0]);
 		charLand[players[0].cy][players[0].cx]='Q';
 	}
@@ -168,7 +163,7 @@ public class Poobert {
 	 */
 	public void move2(String a, String b) {
 		charLand[players[1].cy][players[1].cx]='c';
-		if (players[1].move(a, b))
+		if (players[1].Premove(a, b))
 			changeColor(players[1]);
 		charLand[players[1].cy][players[1].cx]='P';
 	}

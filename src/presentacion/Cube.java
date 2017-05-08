@@ -32,7 +32,7 @@ public class Cube {
 		edges[2] = new Polygon(new int[] { numbers[4], numbers[2], numbers[2], numbers[4] },
 				new int[] { numbers[1], numbers[2], numbers[4], numbers[3] }, 4);
 	}
-	public static Color stringToColor(String arg) {
+	public Color stringToColor(String arg) {
 		Color color = null;
 		try {
 			Field field = Class.forName("java.awt.Color").getField(arg);
