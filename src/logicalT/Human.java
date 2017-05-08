@@ -1,7 +1,6 @@
 package logicalT;
 
 public class Human extends Player{
-	private String color;
 	public Human(int i, int j, String name) {
 		cx=j;
 		cy=i;

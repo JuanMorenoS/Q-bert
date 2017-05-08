@@ -2,18 +2,16 @@ package logicalT;
 
 import java.io.*;
 
-
 public class Poobert {
 	private static Player[] players;
 	private static Mobile[][] mobiles;
 	private static Static[][] statics;
-	private int level, yLevel, xLevel;
+	private int level, yLevel, xLevel,totalC;
 	private String[] colors, playerNames;
 	private char selection;
-
 	public Poobert(String[] names, char selection) {
 		this.selection = selection;
-		level = 1;
+		level = 3;
 		players = new Player[2];
 		playerNames = names;
 		try {
@@ -33,10 +31,12 @@ public class Poobert {
 			int j = 0;
 			for (char c : in.readLine().trim().toCharArray()) {
 				statics[i][j] = (c != 'x') ? new GoodCube(colors) : new BadCube();
+				totalC = (c != 'x') ? totalC+1 :totalC;
 				if (c == 'Q')
 					mobiles[i][j] = players[0] = new Human(i, j, playerNames[0]);
 				if (c == 'P' && selection != '1')
-					mobiles[i][j] = players[1] = selection == '2' ? new Human(i, j, playerNames[1]) : new Machine();
+					mobiles[i][j] = players[1] = selection == '2' ? new Human(i, j, playerNames[1])
+							: new Machine(i, j, playerNames[1]);
 				j++;
 			}
 		}
@@ -48,7 +48,7 @@ public class Poobert {
 	}
 
 	public String getMobile(int y, int x) {
-		return mobiles[y][x]==null?"0":mobiles[y][x].toString();
+		return mobiles[y][x] == null ? "0" : mobiles[y][x].toString();
 	}
 
 	public String getStatic(int y, int x) {
@@ -58,14 +58,37 @@ public class Poobert {
 	public void movePlayer1(String string, String string2) {
 		int[] step = players[0].Premove(string, string2);
 		if (!isBad(step[0], step[1])) {
-			mobiles[step[1]][step[0]] = mobiles[players[0].getCy()][players[0].getCx()];
-			mobiles[players[0].getCy()][players[0].getCx()] = null;
-			players[0].move(string, string2);
+			moveObject(new int[]{players[0].getCx(),players[0].getCy()}, string,string2);
+			statics[step[1]][step[0]].visited();
+			
 		}
 	}
 
 	public void movePlayer2(String string, String string2) {
+		int[] step = players[1].Premove(string, string2);
+		if (!isBad(step[0], step[1])) {
+			moveObject(new int[]{players[1].getCx(),players[1].getCy()}, string,string2);
+			statics[step[1]][step[0]].visited();
+		}
+	}
+		
+	private void moveObject(int[] pre,String a,String b){
+		int[] pos = mobiles[pre[1]][pre[0]].Premove(a, b);
+		mobiles[pos[1]][pos[0]] = mobiles[pre[1]][pre[0]];
+		mobiles[pre[1]][pre[0]]=null;
+		mobiles[pos[1]][pos[0]].move(a, b);
+		
+	}
+	public void player1Attack() {
+		if(players[0].haveAttack()){
+			
+		}
+	}
 
+	public void player2Attack() {
+		if(players[1].haveAttack()){
+			
+		}
 	}
 
 	public static boolean isBad(int x, int y) {
@@ -82,18 +105,17 @@ public class Poobert {
 
 	/* debug */
 	public void printMats() {
-		for (int i=0;i<yLevel;i++){
-			for (Mobile a: mobiles[i]){
-				System.out.print(a!=null?"q"+" ":0+" ");
+		for (int i = 0; i < yLevel; i++) {
+			for (Mobile a : mobiles[i]) {
+				System.out.print(a != null ? "q" + " " : 0 + " ");
 			}
 			System.out.print("---- ");
-			for (Static a: statics[i]){
-				System.out.print(a instanceof Bad?"x ":"c ");
+			for (Static a : statics[i]) {
+				System.out.print(a instanceof Bad ? "x " : "c ");
 			}
 			System.out.println();
 		}
 		System.out.println();
 	}
-
 
 }

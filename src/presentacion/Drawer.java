@@ -80,11 +80,6 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		return temo[1] - (size * 3);
 	}
 
-	private Image getImageFrom(String a) {
-		System.out.println("resources/" + a + ".png");
-		ImageIcon image = new ImageIcon("resources/" + a + ".png");
-		return image.getImage().getScaledInstance(size * 3, size * 3, Image.SCALE_DEFAULT);
-	}
 
 	public void actionPerformed(ActionEvent e) {
 		repaint();
@@ -151,11 +146,6 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		land.get(x)[y].setColors(color, false);
 	}
 
-	private void changeColor(Player play) {
-		if (!land.get(play.cy)[play.cx].visited())
-			play.lose('F');
-	}
-
 	public static Color stringToColor(String arg) {
 		Color color = null;
 		try {
@@ -178,9 +168,5 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 					add(i, j);
 			}
 		}
-		/*
-		 * for (int i = 0; i < yLevel; i++) { for (int j = 0; j < xLevel; j++) {
-		 * if (logic.getMobile(i, j).equals("c")) add(i, j); } }
-		 */
 	}
 }

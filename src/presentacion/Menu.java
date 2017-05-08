@@ -58,7 +58,7 @@ public class Menu extends JFrame {
 		cuerpo.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
 				new TitledBorder("<html><font color='white'> Game Options:<font></html>")));
 		cuerpo.setBackground(Color.BLACK);
-		cuerpo.setLayout(new GridLayout(7,1));
+		cuerpo.setLayout(new GridLayout(8,1));
 		onePlayer = new JRadioButton("<html><font color='white'> Only 1 Player<font></html>");
 		human = new JRadioButton("<html><font color='white'> Human vs Human<font></html>");
 		machine = new JRadioButton("<html><font color='white'> Human vs Machine<font></html>");
@@ -82,13 +82,15 @@ public class Menu extends JFrame {
 		nameSpace.add(player1);
 		nameSpace.add(new JLabel("<html><font color='white'>Player 2 </font></html>"));
 		nameSpace.add(player2);
-		cuerpo.add(nameSpace);
+		cuerpo.add(nameSpace);	
 		cuerpo.add(new JLabel("<html><font color='white'>Level</font></html>"));
 		String [] ejemplo = new String[]{"Easy","Hard"};
 		box = new JComboBox(ejemplo);
 		cuerpo.add(box);
 	}
-
+	public void getLevel(){
+		//return 
+	}
 	private void prepareStart() {
 		panelStart = new JPanel();
 		// panelBoton.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5,

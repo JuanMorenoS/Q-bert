@@ -6,4 +6,16 @@ public class BadCube extends Bad{
 		return "black";
 	}
 
+	public void visited() {
+		
+	}
+
+	public boolean isVisited() {
+		return false;
+	}
+
+	public void unVisited() {
+		
+	}
+
 }

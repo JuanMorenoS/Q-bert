@@ -4,13 +4,10 @@
 package presentacion;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.*;
 import javax.swing.*;
 
-import aplicacion.Poobert;
 
 /**
  * @author blackphantom
