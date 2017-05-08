@@ -26,6 +26,7 @@ public class Poobert {
 		xLevel = Integer.parseInt(in.readLine());
 		mobiles = new Mobile[yLevel][xLevel];
 		statics = new Static[yLevel][xLevel];
+		Mobile.setLogic(this);
 		colors = new String[] { in.readLine(), "lightGray", "darkGray", in.readLine() };
 		for (int i = 0; i < yLevel; i++) {
 			int j = 0;

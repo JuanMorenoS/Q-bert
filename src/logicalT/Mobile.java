@@ -4,6 +4,7 @@ public abstract class Mobile {
 	protected int cx,cy;
 	public abstract String toString();
 	protected String dirx,diry;
+	protected static Poobert logic;
 	public int[] Premove(String a, String b) {
 		int cxn,cyn;
 		if (cy % 2 != 0)
@@ -27,5 +28,8 @@ public abstract class Mobile {
 		cy = (b.equals("U")) ? cy - 1 : cy + 1;
 		dirx=a;
 		diry=b;
+	}
+	public static void setLogic(Poobert a){
+		logic=a;
 	}
 }
