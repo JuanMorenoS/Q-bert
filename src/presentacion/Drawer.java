@@ -6,8 +6,12 @@ package presentacion;
 import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -28,17 +32,31 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);
 		super.paintComponent(g);
-		for (int i=0;i<yLevel;i++) {
-			for (int j=0;j<xLevel;j++) {
+		for (int i = 0; i < yLevel; i++) {
+			for (int j = 0; j < xLevel; j++) {
 				for (int k = 0; k < 3; k++) {
-					if(k==0)
-						g.setColor(stringToColor(logic.getStatic(i,j)));
+					if (k == 0)
+						g.setColor(stringToColor(logic.getStatic(i, j)));
 					else
 						g.setColor(land.get(i)[j].colors[k]);
 					g.fillPolygon(land.get(i)[j].edges[k]);
 				}
 			}
 		}
+
+		for (int i = 0; i < yLevel; i++) {
+			for (int j = 0; j < xLevel; j++) {
+				if (!logic.getMobile(i, j).equals("0")) {
+					try {
+						g.drawImage(ImageIO.read(new File("resources/"+logic.getMobile(i, j)+".png")).getScaledInstance(size * 3,
+								size * 3, Image.SCALE_DEFAULT), realCoordX(i, j), realCoordY(i, j), null);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
 	}
 
 	public Drawer(PoobertGUI god) {
@@ -50,6 +68,22 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
+	}
+
+	private int realCoordX(int i, int j) {
+		int[] temo = land.get(i)[j].getCords();
+		return temo[0] - (size * 3) / 2;
+	}
+
+	private int realCoordY(int i, int j) {
+		int[] temo = land.get(i)[j].getCords();
+		return temo[1] - (size * 3);
+	}
+
+	private Image getImageFrom(String a) {
+		System.out.println("resources/" + a + ".png");
+		ImageIcon image = new ImageIcon("resources/" + a + ".png");
+		return image.getImage().getScaledInstance(size * 3, size * 3, Image.SCALE_DEFAULT);
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -121,7 +155,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		if (!land.get(play.cy)[play.cx].visited())
 			play.lose('F');
 	}
-	
+
 	public static Color stringToColor(String arg) {
 		Color color = null;
 		try {
@@ -131,8 +165,8 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		}
 		return color;
 	}
-	
-	private void makePlaySpace(){
+
+	private void makePlaySpace() {
 		logic = new Poobert(new String[] { father.getPlayer1Name(), father.getPlayer2Name() }, father.getSelection());
 		xLevel = logic.getXLevel();
 		yLevel = logic.getYLevel();
@@ -144,11 +178,9 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 					add(i, j);
 			}
 		}
-		/*for (int i = 0; i < yLevel; i++) {
-			for (int j = 0; j < xLevel; j++) {
-				if (logic.getMobile(i, j).equals("c"))
-					add(i, j);
-			}
-		}*/
+		/*
+		 * for (int i = 0; i < yLevel; i++) { for (int j = 0; j < xLevel; j++) {
+		 * if (logic.getMobile(i, j).equals("c")) add(i, j); } }
+		 */
 	}
 }

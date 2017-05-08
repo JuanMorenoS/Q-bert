@@ -48,7 +48,7 @@ public class Poobert {
 	}
 
 	public String getMobile(int y, int x) {
-		return mobiles[y][x].toString();
+		return mobiles[y][x]==null?"0":mobiles[y][x].toString();
 	}
 
 	public String getStatic(int y, int x) {
@@ -69,7 +69,7 @@ public class Poobert {
 	}
 
 	public static boolean isBad(int x, int y) {
-		return (statics[x][y] instanceof Bad || mobiles[x][y] != null);
+		return (statics[y][x] instanceof Bad || mobiles[y][x] != null);
 	}
 
 	public int getXLevel() {
@@ -84,11 +84,11 @@ public class Poobert {
 	public void printMats() {
 		for (int i=0;i<yLevel;i++){
 			for (Mobile a: mobiles[i]){
-				System.out.print(a!=null?a+" ":0+" ");
+				System.out.print(a!=null?"q"+" ":0+" ");
 			}
 			System.out.print("---- ");
 			for (Static a: statics[i]){
-				System.out.print(a+" ");
+				System.out.print(a instanceof Bad?"x ":"c ");
 			}
 			System.out.println();
 		}
