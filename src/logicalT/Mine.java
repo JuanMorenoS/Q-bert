@@ -1,11 +1,9 @@
 package logicalT;
 
-public class BadCube extends Land{
-
-	public String toString() {
-		return "black";
+public class Mine extends Help{
+	public Mine(){
+		
 	}
-
 	public void visited() {
 		
 	}
@@ -17,5 +15,8 @@ public class BadCube extends Land{
 	public void unVisited() {
 		
 	}
-
+	public String toString(){
+		return "Mine";
+	}
+	
 }

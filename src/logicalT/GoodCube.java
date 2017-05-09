@@ -1,6 +1,6 @@
 package logicalT;
 
-public class GoodCube extends Help{
+public class GoodCube extends Land{
 	public GoodCube(String[] color) {
 		colors = color;
 		actualColor=colors[0];

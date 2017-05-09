@@ -28,7 +28,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 	private ArrayList<Cube[]> land;
 	private int size, xLevel, yLevel;
 	private String[] color;
-
+	
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);
 		super.paintComponent(g);
@@ -36,14 +36,14 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 			for (int j = 0; j < xLevel; j++) {
 				for (int k = 0; k < 3; k++) {
 					if (k == 0)
-						g.setColor(stringToColor(logic.getStatic(i, j)));
+						g.setColor(stringToColor(logic.getLand(i, j)));
 					else
 						g.setColor(land.get(i)[j].colors[k]);
 					g.fillPolygon(land.get(i)[j].edges[k]);
 				}
 			}
 		}
-
+		
 		for (int i = 0; i < yLevel; i++) {
 			for (int j = 0; j < xLevel; j++) {
 				if (!logic.getMobile(i, j).equals("0")) {
@@ -82,7 +82,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 				}
 
 			}
-		}).start();
+		}).start();	
 	}
 
 	private int realCoordX(int i, int j) {
@@ -172,7 +172,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		}
 		return color;
 	}
-
+	
 	private void makePlaySpace() {
 		logic = new Poobert(new String[] { father.getPlayer1Name(), father.getPlayer2Name() }, father.getSelection());
 		xLevel = logic.getXLevel();
@@ -181,7 +181,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		tablero(xLevel);
 		for (int i = 0; i < yLevel; i++) {
 			for (int j = 0; j < xLevel; j++) {
-				if (!logic.getStatic(i, j).equals("black"))
+				if (!logic.getLand(i, j).equals("black"))
 					add(i, j);
 			}
 		}
