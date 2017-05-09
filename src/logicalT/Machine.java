@@ -3,6 +3,7 @@ package logicalT;
 public class Machine extends Player {
 	private Conduct con;
 	public Machine(int i, int j, String string) {
+		live=3;
 		cx=j;
 		cy=i;
 		dirx="L";

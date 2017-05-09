@@ -50,7 +50,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 					try {
 						g.drawImage(
 								ImageIO.read(new File("resources/" + logic.getMobile(i, j) + ".png"))
-										.getScaledInstance(size * 3, size * 3, Image.SCALE_DEFAULT),
+										.getScaledInstance(size * 3, size * 3, Image.SCALE_SMOOTH),
 								realCoordX(i, j), realCoordY(i, j), null);
 					} catch (IOException e) {
 						e.printStackTrace();

@@ -2,6 +2,7 @@ package logicalT;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Poobert {
 	private static Player[] players;
@@ -63,7 +64,6 @@ public class Poobert {
 		if (!isBad(step[0], step[1])) {
 			moveObject(players[0].getCoords(), string, string2);
 			statics[step[1]][step[0]].visited();
-
 		}
 	}
 
@@ -81,15 +81,24 @@ public class Poobert {
 
 	public void moveObject(int[] pre, String a, String b) {
 		int[] pos = mobiles[pre[1]][pre[0]].Premove(a, b);
-		mobiles[pos[1]][pos[0]] = mobiles[pre[1]][pre[0]];
-		mobiles[pre[1]][pre[0]] = null;
-		mobiles[pos[1]][pos[0]].move(a, b);
+		if (statics[pos[1]][pos[0]] instanceof Bad && mobiles[pre[1]][pre[0]].getLive() <= 2)
+			destroy(pre[1], pre[0]);
+		else {
+			mobiles[pos[1]][pos[0]] = mobiles[pre[1]][pre[0]];
+			mobiles[pre[1]][pre[0]] = null;
+			mobiles[pos[1]][pos[0]].move(a, b);
+		}
 
+	}
+
+	public void destroy(int i, int j) {
+		mobiles[i][j] = null;
 	}
 
 	public void player1Attack() {
 		int[] temp = players[0].Premove(players[0].getDirx(), players[0].getDiry());
-		mobiles[temp[1]][temp[0]] = new EnergyBallMove(players[0]);
+		if (statics[temp[1]] [temp[0]] instanceof GoodCube)
+			mobiles[temp[1]][temp[0]] = new EnergyBallMove(players[0]);
 	}
 
 	public void player2Attack() {
@@ -105,8 +114,7 @@ public class Poobert {
 				if (b != null)
 					temp.add(b);
 		for (Mobile b : temp) {
-			if(b instanceof Machine)b.move();
-			
+			b.move();
 		}
 	}
 

@@ -1,7 +1,7 @@
 package logicalT;
 
 public abstract class Mobile{
-	protected int cx,cy;
+	protected int cx,cy,live;
 	public abstract String toString();
 	protected String dirx,diry,name;
 	protected static Poobert logic;
@@ -45,5 +45,8 @@ public abstract class Mobile{
 	}
 	public String getDiry(){
 		return diry;
+	}
+	public int getLive() {
+		return live;
 	}
 }

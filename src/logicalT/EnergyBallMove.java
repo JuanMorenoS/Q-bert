@@ -1,20 +1,25 @@
 package logicalT;
 
-public class EnergyBallMove extends Enemy{
+public class EnergyBallMove extends Enemy {
 	Player play;
-	public EnergyBallMove(Player a){
-		play=a;
-		con=new Projectile(a);
-		int[] cord=Premove(a.getDirx(), a.getDiry());
-		cx=cord[0];
-		cy=cord[1];
+
+	public EnergyBallMove(Player a) {
+		play = a;
+		con = new Projectile(a);
+		cx = a.getCx();
+		cy = a.getCy();
+		int[] cord = Premove(a.getDirx(), a.getDiry());
+		move(a.getDirx(), a.getDiry());
 	}
+
 	public String toString() {
 		return "powerball";
 	}
 
 	public String[] move() {
-		return con.nextMove();
+		String[] temp = con.nextMove();
+		logic.moveObject(getCoords(), temp[0], temp[1]);
+		return temp;
 	}
 
 }
