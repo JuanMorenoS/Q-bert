@@ -14,7 +14,7 @@ public class Poobert {
 
 	public Poobert(String[] names, char selection) {
 		this.selection = selection;
-		level = 1;
+		level = 3;
 		players = new Player[2];
 		playerNames = names;
 		try {
@@ -96,14 +96,18 @@ public class Poobert {
 	}
 
 	public void player1Attack() {
-		int[] temp = players[0].Premove(players[0].getDirx(), players[0].getDiry());
-		if (statics[temp[1]] [temp[0]] instanceof GoodCube)
-			mobiles[temp[1]][temp[0]] = new EnergyBallMove(players[0]);
+		if (players[0].haveAttack()) {
+			int[] temp = players[0].Premove(players[0].getDirx(), players[0].getDiry());
+			if (statics[temp[1]][temp[0]] instanceof GoodCube)
+				mobiles[temp[1]][temp[0]] = new EnergyBallMove(players[0]);
+		}
 	}
 
 	public void player2Attack() {
 		if (players[1].haveAttack()) {
-
+			int[] temp = players[1].Premove(players[1].getDirx(), players[1].getDiry());
+			if (statics[temp[1]][temp[0]] instanceof GoodCube)
+				mobiles[temp[1]][temp[0]] = new EnergyBallMove(players[0]);
 		}
 	}
 
