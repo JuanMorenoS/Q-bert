@@ -1,6 +1,5 @@
 package logicalT;
 
-import java.util.Arrays;
 
 public class Projectile extends Conduct{
 	private String[] direction;
