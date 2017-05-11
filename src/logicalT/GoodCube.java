@@ -1,6 +1,10 @@
 package logicalT;
 
 public class GoodCube extends Land{
+	/**
+	 * Constructor GoodCube
+	 * @param color un arreglo de colores
+	 */
 	public GoodCube(String[] color) {
 		colors = color;
 		actualColor=colors[0];
