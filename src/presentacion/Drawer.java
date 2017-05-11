@@ -29,6 +29,9 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 	private int size, xLevel, yLevel;
 	private String[] color;
 	
+	/**
+	 * Le asigna los respectivos colores a un elemento del escenario
+	 */
 	public void paintComponent(Graphics g) {
 		setBackground(Color.black);
 		super.paintComponent(g);
@@ -60,7 +63,10 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		}
 
 	}
-
+	/**
+	 * Constructor del dibujador
+	 * @param god una instancia de la clase GUI principal
+	 */
 	public Drawer(PoobertGUI god) {
 		father = god;
 		time.start();
@@ -84,29 +90,43 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 			}
 		}).start();	
 	}
-
+	/**
+	 * Da la coordenada en X
+	 * @param i indice de filas de la matriz
+	 * @param j indice de columnas de la matriz
+	 * @return la coordenada en X
+	 */
 	private int realCoordX(int i, int j) {
 		int[] temo = land.get(i)[j].getCords();
 		return temo[0] - (size * 3) / 2;
 	}
-
+	/**
+	 * Da la coordenada en Y
+	 * @param i indice de filas de la matriz
+	 * @param j indice de columnas de la matriz
+	 * @return la coordenada en Y
+	 */
 	private int realCoordY(int i, int j) {
 		int[] temo = land.get(i)[j].getCords();
 		return temo[1] - (size * 3);
 	}
-
+	/**
+	 * Oyente para que dibuje un componente
+	 */
 	public void actionPerformed(ActionEvent e) {
 		repaint();
 	}
-
+	
 	public void keyTyped(KeyEvent e) {
 
 	}
-
+	
 	public void keyPressed(KeyEvent e) {
 
 	}
-
+	/**
+	 * Oyente para dibujar el movimiento de los jugadores
+	 */
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 		if (key == 103) {
@@ -140,7 +160,10 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		}
 		logic.printMats();
 	}
-
+	/**
+	 * Dibuja el tablero 
+	 * @param b pivote limite
+	 */
 	private void tablero(int b) {
 		land = new ArrayList<>();
 		for (int i = 0; i < b; i++) {
@@ -158,11 +181,19 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 	}
-
+	/**
+	 * Agrega el cubo
+	 * @param x coordenada x
+	 * @param y coordenada y
+	 */
 	private void add(int x, int y) {
 		land.get(x)[y].setColors(color, false);
 	}
-
+	/**
+	 * Cambia una cadena de color a un Color 
+	 * @param arg la cadena de color
+	 * @return el color de tipo Color
+	 */
 	public static Color stringToColor(String arg) {
 		Color color = null;
 		try {
@@ -172,7 +203,9 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		}
 		return color;
 	}
-	
+	/**
+	 * Hace el tablero
+	 */
 	private void makePlaySpace() {
 		logic = new Poobert(new String[] { father.getPlayer1Name(), father.getPlayer2Name() }, father.getSelection());
 		xLevel = logic.getXLevel();
