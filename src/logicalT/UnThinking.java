@@ -4,9 +4,15 @@ import java.util.Random;
 
 public class UnThinking extends Conduct {
 
+	/**
+	 * @param a
+	 */
 	public UnThinking(Mobile a) {
 		super(a);
 	}
+	/* (non-Javadoc)
+	 * @see logicalT.Conduct#nextMove()
+	 */
 	public String[] nextMove() {
 		Random x = new Random();
 		String xx = x.nextBoolean() ? "R" : "L";
