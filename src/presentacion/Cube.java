@@ -18,7 +18,7 @@ public class Cube {
 	
 	/** Clase constructora por medio del tam del cubo y de un arreglo de colores
 	 * @param tam dimension del cubo
-	 * @param colors arreglo con los colores representados como String
+	 * @param colors arreglo con los colores representados como String 
 	 */
 	public Cube(int tam, String[] colors) {
 		int[] numbers = new int[5];
