@@ -3,7 +3,7 @@ package logicalT;
 import java.io.*;
 import java.util.*;
 
-public class Poobert {
+public class Poobert implements Serializable{
 	private static Player[] players;
 	private static Mobile[][] mobiles;
 	private static Land[][] land;
@@ -26,6 +26,20 @@ public class Poobert {
 			readLevel();
 		} catch (IOException e) {
 		}
+		
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					while (true) {
+						nextFrame();
+						Thread.sleep(500);
+					}
+				} catch (Exception e) {
+				}
+
+			}
+		}).start();	
 	}
 
 	/**
@@ -267,6 +281,22 @@ public class Poobert {
 			
 		}
 	}
+	public void save(File file){
+		try{
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+			out.writeObject(this);
+			out.close();
+		}
+		catch(IOException e){
+			
+		}
+	}
+	public Poobert open(File file) throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream ob = new ObjectInputStream(new FileInputStream(file));
+		Poobert temp = (Poobert)ob.readObject();
+		ob.close();
+		return temp;
+	}
 	/* debug */
 	/**
 	 * 
@@ -284,6 +314,8 @@ public class Poobert {
 		}
 		System.out.println();
 	}
+
+	
 }
 /*
             try{

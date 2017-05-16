@@ -1,6 +1,8 @@
 package logicalT;
 
-public abstract class Land {
+import java.io.Serializable;
+
+public abstract class Land implements Serializable{
 	protected boolean visited;
 	protected String[] colors;
 	protected String actualColor;

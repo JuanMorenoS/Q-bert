@@ -1,6 +1,8 @@
 package logicalT;
 
-public abstract class Static {
+import java.io.Serializable;
+
+public abstract class Static implements Serializable{
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

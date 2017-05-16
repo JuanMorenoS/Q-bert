@@ -1,6 +1,8 @@
 package logicalT;
 
-public abstract class Conduct {
+import java.io.Serializable;
+
+public abstract class Conduct implements Serializable{
 	protected Mobile element;
 
 	/**

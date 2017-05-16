@@ -1,6 +1,8 @@
 package logicalT;
 
-public abstract class Mobile{
+import java.io.Serializable;
+
+public abstract class Mobile implements Serializable{
 	protected int cx,cy,live;
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()

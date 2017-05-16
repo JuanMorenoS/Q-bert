@@ -7,7 +7,9 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 import javax.imageio.ImageIO;
@@ -76,19 +78,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					while (true) {
-						logic.nextFrame();
-						Thread.sleep(500);
-					}
-				} catch (Exception e) {
-				}
-
-			}
-		}).start();	
+		
 	}
 	/**
 	 * Da la coordenada en X
@@ -218,5 +208,24 @@ public class Drawer extends JPanel implements ActionListener, KeyListener {
 					add(i, j);
 			}
 		}
+	}
+	public void save(File file){
+		logic.save(file);
+	}
+	public void open(File file){
+		try {
+			logic = logic.open(file);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		logic.printMats();
+		//makePlaySpace();
 	}
 }

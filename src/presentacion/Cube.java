@@ -5,6 +5,7 @@ package presentacion;
 
 import java.awt.Color;
 import java.awt.Polygon;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 /** 
