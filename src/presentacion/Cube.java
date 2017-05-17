@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
  * @author blackphantom
  *
  */
-public class Cube {
+public class Cube implements Serializable{
 	public Polygon[] edges;
 	public Color[] colors;
 	private boolean evil;

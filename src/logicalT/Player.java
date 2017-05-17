@@ -1,6 +1,8 @@
 package logicalT;
 
-public abstract class Player extends Mobile{
+import java.io.Serializable;
+
+public abstract class Player extends Mobile implements Serializable{
 	protected String color;
 	/**
 	 * me dice si un jugador tiene ataque

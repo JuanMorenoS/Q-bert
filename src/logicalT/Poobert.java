@@ -294,6 +294,8 @@ public class Poobert implements Serializable{
 	public Poobert open(File file) throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream ob = new ObjectInputStream(new FileInputStream(file));
 		Poobert temp = (Poobert)ob.readObject();
+		System.out.println("ok");
+		temp.printMats();
 		ob.close();
 		return temp;
 	}

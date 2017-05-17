@@ -7,8 +7,12 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
@@ -23,7 +27,7 @@ import logicalT.Poobert;
  * @author blackphantom
  *
  */
-public class Drawer extends JPanel implements ActionListener, KeyListener {
+public class Drawer extends JPanel implements ActionListener, KeyListener,Serializable {
 	private Timer time = new Timer(5, this);
 	private PoobertGUI father;
 	private Poobert logic;
