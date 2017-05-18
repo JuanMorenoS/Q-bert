@@ -25,7 +25,7 @@ public class Poobert implements Serializable {
 	 */
 	public Poobert(String[] names, char selection) {
 		this.selection = selection;
-		level = 3;
+		level = 1;
 		players = new Player[2];
 		playerNames = names;
 		try {
@@ -131,6 +131,11 @@ public class Poobert implements Serializable {
 			moveObject(players[0].getCoords(), string, string2);
 			land[step[1]][step[0]].visited();
 		}
+		else {
+			players[0].lose();
+			//destroyMobile(step[0], step[1]);
+			destroyStatic(step[0], step[1]);
+		}
 	}
 
 	/**
@@ -217,7 +222,7 @@ public class Poobert implements Serializable {
 		for (Mobile b : temp) {
 			b.move();
 		}
-		if ((seconds) % 10 == 0)
+		if ((seconds+1) % 10 == 0)
 			putRandomStaticObject();
 	}
 
@@ -287,8 +292,12 @@ public class Poobert implements Serializable {
 	 * @param j
 	 *            la pos en x
 	 */
-	public void destroyStatic(int i, int j) {
+	public void destroyLand(int i, int j) {
 		land[i][j] = new GoodCube(colors);
+	}
+	
+	public void destroyStatic(int j, int i) {
+		StaticObjects[i][j]=null;
 	}
 
 	/**
@@ -359,6 +368,10 @@ public class Poobert implements Serializable {
 			System.out.print("---- ");
 			for (Land a : land[i]) {
 				System.out.print(a instanceof BadCube ? "x " : "c ");
+			}
+			System.out.print("---- ");
+			for (Static a : StaticObjects[i]) {
+				System.out.print(a != null ? a.getClass().getName().charAt(9) + " " : 0 + " ");
 			}
 			System.out.println();
 		}

@@ -90,7 +90,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 	public Drawer(PoobertGUI god) {
 		father = god;
 		time.start();
-		size = 20;
+		size = 30;
 		makePlaySpace();
 		father.setSize(size * (xLevel * 4 + 2), size * (yLevel * 2 + 10));
 		addKeyListener(this);

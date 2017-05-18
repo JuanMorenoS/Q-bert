@@ -11,4 +11,8 @@ public abstract class Player extends Mobile implements Serializable{
 	public boolean haveAttack(){
 		return true;
 	}
+	public void lose() {
+		// TODO Auto-generated method stub
+		
+	}
 }
