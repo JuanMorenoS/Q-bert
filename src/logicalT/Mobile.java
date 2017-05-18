@@ -99,4 +99,7 @@ public abstract class Mobile implements Serializable{
 	public int getLive() {
 		return live;
 	}
+	public Poobert getLogic(){
+		return logic;
+	}
 }

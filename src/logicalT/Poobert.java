@@ -4,10 +4,10 @@ import java.io.*;
 import java.util.*;
 
 public class Poobert implements Serializable{
-	private static Player[] players;
-	private static Mobile[][] mobiles;
-	private static Land[][] land;
-	private static Static[][] StaticObjects;
+	private Player[] players;
+	private Mobile[][] mobiles;
+	private Land[][] land;
+	private Static[][] StaticObjects;
 	private int level, yLevel, xLevel, totalC;
 	private String[] colors, playerNames;
 	private char selection;
@@ -198,7 +198,7 @@ public class Poobert implements Serializable{
 	 * @param y la zona en y
 	 * @return si es mala
 	 */
-	public static boolean isBad(int x, int y) {
+	public boolean isBad(int x, int y) {
 		return (isStaticBad(x, y) || isMobileBad(x, y));
 	}
 
@@ -208,7 +208,7 @@ public class Poobert implements Serializable{
 	 * @param y la zona estatica en y
 	 * @return si es mala
 	 */
-	public static boolean isStaticBad(int x, int y) {
+	public boolean isStaticBad(int x, int y) {
 		return (land[y][x] instanceof BadCube || StaticObjects[y][x] instanceof Bad);
 	}
 
@@ -218,7 +218,7 @@ public class Poobert implements Serializable{
 	 * @param y la zona estatica en y
 	 * @return si es mala
 	 */
-	public static boolean isMobileBad(int x, int y) {
+	public boolean isMobileBad(int x, int y) {
 		return (mobiles[y][x] != null);
 	}
 
@@ -294,8 +294,6 @@ public class Poobert implements Serializable{
 	public Poobert open(File file) throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream ob = new ObjectInputStream(new FileInputStream(file));
 		Poobert temp = (Poobert)ob.readObject();
-		System.out.println("ok");
-		temp.printMats();
 		ob.close();
 		return temp;
 	}
