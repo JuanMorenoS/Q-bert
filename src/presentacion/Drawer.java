@@ -67,6 +67,20 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 				}
 			}
 		}
+		for (int i = 0; i < yLevel; i++) {
+			for (int j = 0; j < xLevel; j++) {
+				if (!logic.getStaticObjects(i, j).equals("0")) {
+					try {
+						g.drawImage(
+								ImageIO.read(new File("resources/" + logic.getStaticObjects(i, j) + ".png"))
+										.getScaledInstance(size*2,size*2*170/253, Image.SCALE_SMOOTH),
+								realCoordX(i, j)+size/2, realCoordY(i, j)+size*23/10, null);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 
 	}
 	/**
@@ -76,7 +90,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 	public Drawer(PoobertGUI god) {
 		father = god;
 		time.start();
-		size = 30;
+		size = 20;
 		makePlaySpace();
 		father.setSize(size * (xLevel * 4 + 2), size * (yLevel * 2 + 10));
 		addKeyListener(this);

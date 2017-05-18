@@ -1,6 +1,6 @@
 package logicalT;
 
-public class Mine extends Help{
+public class Mine extends Bad{
 	public Mine(){
 		
 	}

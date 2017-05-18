@@ -3,19 +3,25 @@ package logicalT;
 import java.io.*;
 import java.util.*;
 
-public class Poobert implements Serializable{
+public class Poobert implements Serializable {
 	private Player[] players;
 	private Mobile[][] mobiles;
 	private Land[][] land;
 	private Static[][] StaticObjects;
 	private int level, yLevel, xLevel, totalC;
+	private double seconds;
 	private String[] colors, playerNames;
 	private char selection;
-	private String[] posibleMobileElements = new String[]{"Ugg","MegaBall","Snake"};
-	private String[] posibleStaticElements = new String[]{"UltraSpeed","UltraShield","Mine","EnergyBall","Switch"};
+	private String[] posibleMobileElements = new String[] { "Ugg", "MegaBall", "Snake" };
+	// private String[] posibleStaticElements = new
+	// String[]{"UltraSpeed","UltraShield","Mine","EnergyBall","Switch"};
+	private String[] posibleStaticElements = new String[] { "Mine" };
+
 	/**
-	 * @param names los nombre de los jugadores
-	 * @param selection la seleccion de modalida de juegdo
+	 * @param names
+	 *            los nombre de los jugadores
+	 * @param selection
+	 *            la seleccion de modalida de juegdo
 	 */
 	public Poobert(String[] names, char selection) {
 		this.selection = selection;
@@ -26,24 +32,27 @@ public class Poobert implements Serializable{
 			readLevel();
 		} catch (IOException e) {
 		}
-		
+
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					while (true) {
 						nextFrame();
+						seconds+=0.5;
 						Thread.sleep(500);
 					}
 				} catch (Exception e) {
+					e.printStackTrace();
 				}
 
 			}
-		}).start();	
+		}).start();
 	}
 
 	/**
-	 * @throws IOException si no existen los archivos ....
+	 * @throws IOException
+	 *             si no existen los archivos ....
 	 */
 	private void readLevel() throws IOException {
 		BufferedReader in = new BufferedReader(new FileReader("resources/Levels/" + level + ".level"));
@@ -78,8 +87,10 @@ public class Poobert implements Serializable{
 	}
 
 	/**
-	 * @param y coordenada en y de un Mobile
-	 * @param x coordenada en x de un Mobile
+	 * @param y
+	 *            coordenada en y de un Mobile
+	 * @param x
+	 *            coordenada en x de un Mobile
 	 * @return la representacion en String
 	 */
 	public String getMobile(int y, int x) {
@@ -87,24 +98,32 @@ public class Poobert implements Serializable{
 	}
 
 	/**
-	 * @param y coordenada en y de un Land
-	 * @param x coordenada en x de un LAnd
+	 * @param y
+	 *            coordenada en y de un Land
+	 * @param x
+	 *            coordenada en x de un LAnd
 	 * @return la representacion en String
 	 */
 	public String getLand(int y, int x) {
 		return land[y][x].toString();
 	}
+
 	/**
-	 * @param i coordenada en y de un Static
-	 * @param j coordenada en x de un Static
+	 * @param i
+	 *            coordenada en y de un Static
+	 * @param j
+	 *            coordenada en x de un Static
 	 * @return la representacion en String
 	 */
-	public String getStaticObjects(int i, int j){
-		return StaticObjects[i][j].toString();
+	public String getStaticObjects(int i, int j) {
+		return StaticObjects[i][j] == null ? "0" : StaticObjects[i][j].toString();
 	}
+
 	/**
-	 * @param string el movimiento en x
-	 * @param string2 el movimiento en y
+	 * @param string
+	 *            el movimiento en x
+	 * @param string2
+	 *            el movimiento en y
 	 */
 	public void movePlayer1(String string, String string2) {
 		int[] step = players[0].Premove(string, string2);
@@ -115,8 +134,10 @@ public class Poobert implements Serializable{
 	}
 
 	/**
-	 * @param string el movimiento en x
-	 * @param string2 el movimiento en y
+	 * @param string
+	 *            el movimiento en x
+	 * @param string2
+	 *            el movimiento en y
 	 */
 	public void movePlayer2(String string, String string2) {
 		if (!string.equals("C")) {
@@ -131,9 +152,12 @@ public class Poobert implements Serializable{
 	}
 
 	/**
-	 * @param el pre movimiento
-	 * @param a el lado para el que se mueve 
-	 * @param b el lado para el que se mieve
+	 * @param el
+	 *            pre movimiento
+	 * @param a
+	 *            el lado para el que se mueve
+	 * @param b
+	 *            el lado para el que se mieve
 	 */
 	public void moveObject(int[] pre, String a, String b) {
 		int[] pos = mobiles[pre[1]][pre[0]].Premove(a, b);
@@ -146,18 +170,21 @@ public class Poobert implements Serializable{
 		}
 
 	}
-	
+
 	/**
 	 * destruye un !!mobile no esta termiando
-	 * @param i  la pos en y
-	 * @param j  la pos en x
+	 * 
+	 * @param i
+	 *            la pos en y
+	 * @param j
+	 *            la pos en x
 	 */
 	public void destroyMobile(int i, int j) {
 		mobiles[i][j] = null;
 	}
 
 	/**
-	 *  si es posible el jugador1 ataca
+	 * si es posible el jugador1 ataca
 	 */
 	public void player1Attack() {
 		if (players[0].haveAttack()) {
@@ -190,12 +217,22 @@ public class Poobert implements Serializable{
 		for (Mobile b : temp) {
 			b.move();
 		}
+		if ((seconds) % 10 == 0)
+			putRandomStaticObject();
+	}
+
+	public static int[] getRandomNumbers(int x, int y) {
+		Random a = new Random();
+		return new int[] { a.nextInt(x) + 1, a.nextInt(y) + 1 };
 	}
 
 	/**
 	 * mira si una zona es mala
-	 * @param x la zona en x
-	 * @param y la zona en y
+	 * 
+	 * @param x
+	 *            la zona en x
+	 * @param y
+	 *            la zona en y
 	 * @return si es mala
 	 */
 	public boolean isBad(int x, int y) {
@@ -204,8 +241,11 @@ public class Poobert implements Serializable{
 
 	/**
 	 * si una zona estatica es mala
-	 * @param x la zona estatica en x 
-	 * @param y la zona estatica en y
+	 * 
+	 * @param x
+	 *            la zona estatica en x
+	 * @param y
+	 *            la zona estatica en y
 	 * @return si es mala
 	 */
 	public boolean isStaticBad(int x, int y) {
@@ -214,8 +254,11 @@ public class Poobert implements Serializable{
 
 	/**
 	 * si una zona estatica es mala
-	 * @param x la zona estatica en x 
-	 * @param y la zona estatica en y
+	 * 
+	 * @param x
+	 *            la zona estatica en x
+	 * @param y
+	 *            la zona estatica en y
 	 * @return si es mala
 	 */
 	public boolean isMobileBad(int x, int y) {
@@ -235,68 +278,75 @@ public class Poobert implements Serializable{
 	public int getYLevel() {
 		return yLevel;
 	}
-	
+
 	/**
 	 * destruye un statico
-	 * @param i la pos en y
-	 * @param j la pos en x
+	 * 
+	 * @param i
+	 *            la pos en y
+	 * @param j
+	 *            la pos en x
 	 */
-	public void destroyStatic(int i, int j){
-		land[i][j]=new GoodCube(colors);
+	public void destroyStatic(int i, int j) {
+		land[i][j] = new GoodCube(colors);
 	}
-	
+
 	/**
 	 * pone objetos estaticos al azar
 	 */
-	public void putRandomStaticObject(){
-		int a=(int)(Math.random() * posibleStaticElements.length);
-		int y=(int)(Math.random() * xLevel);
-		int x=(int)(Math.random() * yLevel);
-		while(isStaticBad(x, y) && mobiles[y][x]==null){
-			y=(int)(Math.random() * xLevel);
-			x=(int)(Math.random() * yLevel);
+	public void putRandomStaticObject() {
+		Random ran = new Random();
+		int a = ran.nextInt(posibleMobileElements.length + 1);
+		int x = ran.nextInt(xLevel);
+		int y = ran.nextInt(yLevel);
+		while (isStaticBad(x, y) || mobiles[y][x] != null) {
+			y = ran.nextInt(yLevel);
+			x = ran.nextInt(xLevel);
 		}
-		try{
-			StaticObjects[y][x]=(Static)Class.forName("logicalT."+posibleStaticElements[a]).getConstructor().newInstance();
-		}
-		catch(Exception e){
-			
+		try {
+			StaticObjects[y][x] = (Static) Class.forName("logicalT." + posibleStaticElements[0]).getConstructor()
+					.newInstance();
+		} catch (Exception e) {
 		}
 	}
+
 	/**
 	 * pone objetos mobiles al azar
 	 */
-	public void putRandomMobileObject(){
-		int a=(int)(Math.random() * posibleMobileElements.length);
-		int y=(int)(Math.random() * xLevel);
-		int x=(int)(Math.random() * yLevel);
-		while(isStaticBad(x, y) && mobiles[y][x]==null){
-			y=(int)(Math.random() * xLevel);
-			x=(int)(Math.random() * yLevel);
+	public void putRandomMobileObject() {
+		Random ran = new Random();
+		int a = ran.nextInt(posibleMobileElements.length + 1);
+		int y = ran.nextInt(xLevel + 1);
+		int x = ran.nextInt(yLevel + 1);
+		while (isStaticBad(x, y) && mobiles[y][x] == null) {
+			y = ran.nextInt(xLevel + 1);
+			x = ran.nextInt(yLevel + 1);
 		}
-		try{
-			mobiles[y][x]=(Mobile)Class.forName("logicalT."+posibleMobileElements[a]).getConstructor().newInstance();
-		}
-		catch(Exception e){
-			
+		try {
+			mobiles[y][x] = (Mobile) Class.forName("logicalT." + posibleMobileElements[a]).getConstructor()
+					.newInstance();
+		} catch (Exception e) {
+
 		}
 	}
-	public void save(File file){
-		try{
+
+	public void save(File file) {
+		try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
 			out.writeObject(this);
 			out.close();
-		}
-		catch(IOException e){
-			
+		} catch (IOException e) {
+
 		}
 	}
+
 	public Poobert open(File file) throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream ob = new ObjectInputStream(new FileInputStream(file));
-		Poobert temp = (Poobert)ob.readObject();
+		Poobert temp = (Poobert) ob.readObject();
 		ob.close();
 		return temp;
 	}
+
 	/* debug */
 	/**
 	 * 
@@ -315,16 +365,11 @@ public class Poobert implements Serializable{
 		System.out.println();
 	}
 
-	
 }
 /*
-            try{
-                edicion =(Normal)Class.forName("ICPC."+tipo).getConstructor().newInstance();
-            }
-            catch(Exception e){                
-            }
-        }
-    }
+ * try{ edicion
+ * =(Normal)Class.forName("ICPC."+tipo).getConstructor().newInstance(); }
+ * catch(Exception e){ } } }
  * 
  * 
- * */
+ */
