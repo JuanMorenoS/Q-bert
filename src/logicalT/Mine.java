@@ -18,5 +18,9 @@ public class Mine extends Bad{
 	public String toString(){
 		return "Mine";
 	}
+	@Override
+	public void use(Player player) {
+		
+	}
 	
 }

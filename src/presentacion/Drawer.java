@@ -243,7 +243,5 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		logic.printMats();
-		//makePlaySpace();
 	}
 }

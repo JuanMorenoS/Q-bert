@@ -9,7 +9,7 @@ public abstract class Mobile implements Serializable{
 	 */
 	public abstract String toString();
 	protected String dirx,diry,name;
-	protected static Poobert logic;
+	public static Poobert logic;
 	/**
 	 * @param a el movimiento en x 
 	 * @param b el movimiento en y

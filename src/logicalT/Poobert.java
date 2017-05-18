@@ -32,7 +32,11 @@ public class Poobert implements Serializable {
 			readLevel();
 		} catch (IOException e) {
 		}
+		startThread();
 
+		
+	}
+	public void startThread(){
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -49,7 +53,6 @@ public class Poobert implements Serializable {
 			}
 		}).start();
 	}
-
 	/**
 	 * @throws IOException
 	 *             si no existen los archivos ....
@@ -130,6 +133,9 @@ public class Poobert implements Serializable {
 		if (!isBad(step[0], step[1])) {
 			moveObject(players[0].getCoords(), string, string2);
 			land[step[1]][step[0]].visited();
+			if(StaticObjects[step[1]][step[0]] instanceof Help){
+				StaticObjects[step[1]][step[0]].use(players[0]);
+			}
 		}
 		else {
 			players[0].lose();
@@ -194,8 +200,10 @@ public class Poobert implements Serializable {
 	public void player1Attack() {
 		if (players[0].haveAttack()) {
 			int[] temp = players[0].Premove(players[0].getDirx(), players[0].getDiry());
-			if (land[temp[1]][temp[0]] instanceof GoodCube)
+			if (land[temp[1]][temp[0]] instanceof GoodCube){
 				mobiles[temp[1]][temp[0]] = new EnergyBallMove(players[0]);
+				players[0].addPower(null);
+			}
 		}
 	}
 
