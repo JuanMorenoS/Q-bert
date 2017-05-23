@@ -1,6 +1,7 @@
 package logicalT;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class Poobert implements Serializable {
@@ -12,10 +13,10 @@ public class Poobert implements Serializable {
 	private double seconds;
 	private String[] colors, playerNames;
 	private char selection;
-	private String[] posibleMobileElements = new String[] { "Ugg", "MegaBall", "Snake" };
+	private String[] posibleMobileElements = new String[] { "Ugg", "MegaBallMove", "Snake" };
 	// private String[] posibleStaticElements = new
 	// String[]{"UltraSpeed","UltraShield","Mine","EnergyBall","Switch"};
-	private String[] posibleStaticElements = new String[] { "Mine" };
+	private String[] posibleStaticElements = new String[] { "Mine", "EnergyBall" };
 
 	/**
 	 * @param names
@@ -34,16 +35,16 @@ public class Poobert implements Serializable {
 		}
 		startThread();
 
-		
 	}
-	public void startThread(){
+
+	public void startThread() {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					while (true) {
 						nextFrame();
-						seconds+=0.5;
+						seconds += 0.5;
 						Thread.sleep(500);
 					}
 				} catch (Exception e) {
@@ -53,6 +54,7 @@ public class Poobert implements Serializable {
 			}
 		}).start();
 	}
+
 	/**
 	 * @throws IOException
 	 *             si no existen los archivos ....
@@ -133,15 +135,14 @@ public class Poobert implements Serializable {
 		if (!isBad(step[0], step[1])) {
 			moveObject(players[0].getCoords(), string, string2);
 			land[step[1]][step[0]].visited();
-			if(StaticObjects[step[1]][step[0]] instanceof Help){
+			if (StaticObjects[step[1]][step[0]] instanceof Help) {
 				StaticObjects[step[1]][step[0]].use(players[0]);
 			}
-		}
-		else {
+		} else {
 			players[0].lose();
-			//destroyMobile(step[0], step[1]);
-			destroyStatic(step[0], step[1]);
+			// destroyMobile(step[0], step[1]);
 		}
+		destroyStatic(step[0], step[1]);
 	}
 
 	/**
@@ -198,10 +199,18 @@ public class Poobert implements Serializable {
 	 * si es posible el jugador1 ataca
 	 */
 	public void player1Attack() {
+		int[] temp = players[0].Premove(players[0].getDirx(), players[0].getDiry());
 		if (players[0].haveAttack()) {
-			int[] temp = players[0].Premove(players[0].getDirx(), players[0].getDiry());
-			if (land[temp[1]][temp[0]] instanceof GoodCube){
-				mobiles[temp[1]][temp[0]] = new EnergyBallMove(players[0]);
+			if (land[temp[1]][temp[0]] instanceof GoodCube) {
+				try {
+					mobiles[temp[1]][temp[0]] = (Mobile) Class.forName("logicalT." + players[0].usePower())
+							.getConstructor(Player.class).newInstance(players[0]);
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | NoSuchMethodException | SecurityException
+						| ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				players[0].addPower(null);
 			}
 		}
@@ -230,7 +239,7 @@ public class Poobert implements Serializable {
 		for (Mobile b : temp) {
 			b.move();
 		}
-		if ((seconds+1) % 10 == 0)
+		if ((seconds + 1) % 2 == 0)
 			putRandomStaticObject();
 	}
 
@@ -303,9 +312,9 @@ public class Poobert implements Serializable {
 	public void destroyLand(int i, int j) {
 		land[i][j] = new GoodCube(colors);
 	}
-	
+
 	public void destroyStatic(int j, int i) {
-		StaticObjects[i][j]=null;
+		StaticObjects[i][j] = null;
 	}
 
 	/**
@@ -321,7 +330,7 @@ public class Poobert implements Serializable {
 			x = ran.nextInt(xLevel);
 		}
 		try {
-			StaticObjects[y][x] = (Static) Class.forName("logicalT." + posibleStaticElements[0]).getConstructor()
+			StaticObjects[y][x] = (Static) Class.forName("logicalT." + posibleStaticElements[a]).getConstructor()
 					.newInstance();
 		} catch (Exception e) {
 		}
