@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class Poobert implements Serializable {
+	private Thread hilo;
 	private Player[] players;
 	private Mobile[][] mobiles;
 	private Land[][] land;
@@ -16,7 +17,7 @@ public class Poobert implements Serializable {
 	private String[] posibleMobileElements = new String[] { "Ugg", "MegaBallMove", "Snake" };
 	// private String[] posibleStaticElements = new
 	// String[]{"UltraSpeed","UltraShield","Mine","EnergyBall","Switch"};
-	private String[] posibleStaticElements = new String[] { "Mine", "EnergyBall" };
+	private String[] posibleStaticElements = new String[] { "Mine", "EnergyBall","Switch","UltraSpeed" };
 
 	/**
 	 * @param names
@@ -38,8 +39,7 @@ public class Poobert implements Serializable {
 	}
 
 	public void startThread() {
-		new Thread(new Runnable() {
-			@Override
+		hilo=new Thread(new Runnable() {
 			public void run() {
 				try {
 					while (true) {
@@ -52,7 +52,16 @@ public class Poobert implements Serializable {
 				}
 
 			}
-		}).start();
+		});
+		hilo.start();
+	}
+	public void stopThread(){
+		try {
+			hilo.suspend();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -123,7 +132,9 @@ public class Poobert implements Serializable {
 	public String getStaticObjects(int i, int j) {
 		return StaticObjects[i][j] == null ? "0" : StaticObjects[i][j].toString();
 	}
-
+	public void visitLand(int i,int j,Player a){
+		land[i][j].visited(a);
+	}
 	/**
 	 * @param string
 	 *            el movimiento en x
@@ -134,7 +145,8 @@ public class Poobert implements Serializable {
 		int[] step = players[0].Premove(string, string2);
 		if (!isBad(step[0], step[1])) {
 			moveObject(players[0].getCoords(), string, string2);
-			land[step[1]][step[0]].visited();
+			visitLand(step[1], step[0], players[0]);
+			land[step[1]][step[0]].visited(players[0]);
 			if (StaticObjects[step[1]][step[0]] instanceof Help) {
 				StaticObjects[step[1]][step[0]].use(players[0]);
 			}
@@ -156,7 +168,7 @@ public class Poobert implements Serializable {
 			int[] step = players[1].Premove(string, string2);
 			if (!isBad(step[0], step[1])) {
 				moveObject(players[1].getCoords(), string, string2);
-				land[step[1]][step[0]].visited();
+				visitLand(step[1], step[0], players[1]);
 			}
 		} else {
 			players[1].move();

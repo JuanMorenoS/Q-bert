@@ -8,7 +8,7 @@ public class BadCube extends Land{
 	}
 
 
-	public void visited() {
+	public void visited(Player a) {
 		
 	}
 

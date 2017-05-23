@@ -6,6 +6,7 @@ public abstract class Land implements Serializable{
 	protected boolean visited;
 	protected String[] colors;
 	protected String actualColor;
+	protected Player player;
 
 	public String toString() {
 		return actualColor;
@@ -13,7 +14,7 @@ public abstract class Land implements Serializable{
 	/**
 	 * maraca el cubo como visitado
 	 */
-	public abstract void visited();
+	public abstract void visited(Player a);
 	/**
 	 * @return a booleano si es visitado
 	 */
