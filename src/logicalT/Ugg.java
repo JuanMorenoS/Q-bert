@@ -7,8 +7,10 @@ public class Ugg extends Enemy {
 	public Ugg(int i, int j) {
 		cx = j;
 		cy = i;
-		if (logic.getDifficult() == 'H' || true)
+		if (logic.getDifficult() == 'H')
 			con = new CheesHorse(this);
+		else
+			con=new UnThinking(this);
 	}
 
 	public String toString() {

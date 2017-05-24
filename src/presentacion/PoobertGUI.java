@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -112,6 +113,24 @@ public class PoobertGUI extends JFrame {
 		if (explorer.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
 			tablero.open(explorer.getSelectedFile());
 		}
+	}
+	public char getHard(){
+		System.out.println(father.getHard());
+		return father.getHard().equals("Hard")?'H':'E';
+	}
+	public String[] getHelps(){
+		String[] res = new String[father.getHelpSelection().size()];
+		for(int i=0;i<res.length;i++){
+			res[i]=father.getHelpSelection().get(i);
+		}
+		return res;
+	}
+	public String[] getEnem(){
+		String[] res = new String[father.getEnemSelection().size()];
+		for(int i=0;i<res.length;i++){
+			res[i]=father.getEnemSelection().get(i);
+		}
+		return res;
 	}
 	
 }

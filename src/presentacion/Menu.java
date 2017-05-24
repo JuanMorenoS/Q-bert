@@ -7,8 +7,11 @@ import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.text.GapContent;
 
+import logicalT.Snake;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Menu extends JFrame {
 	/* Menu */
@@ -31,7 +34,9 @@ public class Menu extends JFrame {
 	private ButtonGroup group;
 	private JTextField player1;
 	private JTextField player2;
-	private JComboBox box;
+	private JComboBox box,color1,color2,machineMode;
+	private JCheckBox ugg,megaBall,snake,ultraSpeed,energyBall,mine,Switch,UltraShield;
+	private JPanel comboxEnem,comboxHelp;
 	public Menu() {
 		super();
 		prepareElementos();
@@ -41,7 +46,7 @@ public class Menu extends JFrame {
 	private void prepareElementos() {
 		setTitle("Mega Q*bert - Menu");
 		setBackground(Color.black);
-		setSize(600, 600);
+		setSize(800, 1000);
 		centre();
 		prepareMenuPrincipal();
 		add(menu, BorderLayout.NORTH);
@@ -58,7 +63,7 @@ public class Menu extends JFrame {
 		cuerpo.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5),
 				new TitledBorder("<html><font color='white'> Game Options:<font></html>")));
 		cuerpo.setBackground(Color.BLACK);
-		cuerpo.setLayout(new GridLayout(8,1));
+		cuerpo.setLayout(new GridLayout(9,1,5,5));
 		onePlayer = new JRadioButton("<html><font color='white'> Only 1 Player<font></html>");
 		human = new JRadioButton("<html><font color='white'> Human vs Human<font></html>");
 		machine = new JRadioButton("<html><font color='white'> Human vs Machine<font></html>");
@@ -76,17 +81,35 @@ public class Menu extends JFrame {
 		player1 = new JTextField(10);
 		player2 = new JTextField(10);
 		nameSpace= new JPanel();
+		String [] colors = new String[]{"Orange","Blue"};
 		nameSpace.setBackground(Color.BLACK);
-		nameSpace.setLayout(new GridLayout(2, 2));
+		nameSpace.setLayout(new GridLayout(3,3,3,3));
 		nameSpace.add(new JLabel("<html><font color='white'>Player 1 </font></html>"));
 		nameSpace.add(player1);
+		nameSpace.add(color1=new JComboBox<String>(colors));
 		nameSpace.add(new JLabel("<html><font color='white'>Player 2 </font></html>"));
 		nameSpace.add(player2);
+		nameSpace.add(color2=new JComboBox<String>(colors));
+		nameSpace.add(new JLabel("<html><font color='white'>Machine Mode </font></html>"));
+		String [] modes = new String[]{"Timido","Ofensivo","Irreflexivo"};
+		nameSpace.add(machineMode= new JComboBox<String>(modes));
 		cuerpo.add(nameSpace);	
 		cuerpo.add(new JLabel("<html><font color='white'>Level</font></html>"));
 		String [] ejemplo = new String[]{"Easy","Hard"};
-		box = new JComboBox(ejemplo);
+		box = new JComboBox<String>(ejemplo);
 		cuerpo.add(box);
+		comboxEnem= new JPanel(new GridLayout(1, 3));
+		comboxHelp= new JPanel(new GridLayout(1, 5));
+		comboxEnem.add(snake = new JCheckBox("Snake"));
+		comboxEnem.add(ugg = new JCheckBox("Ugg"));
+		comboxEnem.add(megaBall= new JCheckBox("Mega Ball"));
+		cuerpo.add(comboxEnem);
+		comboxHelp.add(UltraShield=new JCheckBox("Ultra Shield"));
+		comboxHelp.add(ultraSpeed= new JCheckBox("Ultra Speed"));
+		comboxHelp.add(Switch=new JCheckBox("Switch"));
+		comboxHelp.add(mine = new JCheckBox("Mine"));
+		comboxHelp.add(energyBall = new JCheckBox("Energy Ball"));
+		cuerpo.add(comboxHelp);
 	}
 	public void getLevel(){
 		//return 
@@ -174,5 +197,24 @@ public class Menu extends JFrame {
 		men.add(save);
 		exit = new JMenuItem("Exit");
 		men.add(exit);
+	}
+	public String getHard(){
+		return (String) box.getSelectedItem();
+	}
+	public ArrayList<String> getHelpSelection(){
+		ArrayList<String> res = new ArrayList<>();
+		if(Switch.isSelected()) res.add("Switch");
+		if(mine.isSelected()) res.add("Mine");
+		if(energyBall.isSelected()) res.add("EnergyBall");
+		if(UltraShield.isSelected()) res.add("UltraShield");
+		if(ultraSpeed.isSelected()) res.add("UltraSpeed");
+		return res;
+	}
+	public ArrayList<String> getEnemSelection(){
+		ArrayList<String> res = new ArrayList<>();
+		if(ugg.isSelected()) res.add("Ugg");
+		if(snake.isSelected()) res.add("Snake");
+		if(megaBall.isSelected()) res.add("MegaBall");
+		return res;
 	}
 }

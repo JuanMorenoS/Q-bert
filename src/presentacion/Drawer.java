@@ -27,14 +27,14 @@ import logicalT.Poobert;
  * @author blackphantom
  *
  */
-public class Drawer extends JPanel implements ActionListener, KeyListener,Serializable {
+public class Drawer extends JPanel implements ActionListener, KeyListener, Serializable {
 	private Timer time = new Timer(5, this);
 	private PoobertGUI father;
 	private Poobert logic;
 	private ArrayList<Cube[]> land;
 	private int size, xLevel, yLevel;
 	private String[] color;
-	
+
 	/**
 	 * Le asigna los respectivos colores a un elemento del escenario
 	 */
@@ -52,7 +52,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < yLevel; i++) {
 			for (int j = 0; j < xLevel; j++) {
 				if (!logic.getMobile(i, j).equals("0")) {
@@ -73,8 +73,8 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 					try {
 						g.drawImage(
 								ImageIO.read(new File("resources/" + logic.getStaticObjects(i, j) + ".png"))
-										.getScaledInstance(size*2,size*2*170/253, Image.SCALE_SMOOTH),
-								realCoordX(i, j)+size/2, realCoordY(i, j)+size*23/10, null);
+										.getScaledInstance(size * 2, size * 2 * 170 / 253, Image.SCALE_SMOOTH),
+								realCoordX(i, j) + size / 2, realCoordY(i, j) + size * 23 / 10, null);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -83,9 +83,12 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 		}
 
 	}
+
 	/**
 	 * Constructor del dibujador
-	 * @param god una instancia de la clase GUI principal
+	 * 
+	 * @param god
+	 *            una instancia de la clase GUI principal
 	 */
 	public Drawer(PoobertGUI god) {
 		father = god;
@@ -96,42 +99,52 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 		addKeyListener(this);
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-		
+
 	}
+
 	/**
 	 * Da la coordenada en X
-	 * @param i indice de filas de la matriz
-	 * @param j indice de columnas de la matriz
+	 * 
+	 * @param i
+	 *            indice de filas de la matriz
+	 * @param j
+	 *            indice de columnas de la matriz
 	 * @return la coordenada en X
 	 */
 	private int realCoordX(int i, int j) {
 		int[] temo = land.get(i)[j].getCords();
 		return temo[0] - (size * 3) / 2;
 	}
+
 	/**
 	 * Da la coordenada en Y
-	 * @param i indice de filas de la matriz
-	 * @param j indice de columnas de la matriz
+	 * 
+	 * @param i
+	 *            indice de filas de la matriz
+	 * @param j
+	 *            indice de columnas de la matriz
 	 * @return la coordenada en Y
 	 */
 	private int realCoordY(int i, int j) {
 		int[] temo = land.get(i)[j].getCords();
 		return temo[1] - (size * 3);
 	}
+
 	/**
 	 * Oyente para que dibuje un componente
 	 */
 	public void actionPerformed(ActionEvent e) {
 		repaint();
 	}
-	
+
 	public void keyTyped(KeyEvent e) {
 
 	}
-	
+
 	public void keyPressed(KeyEvent e) {
 
 	}
+
 	/**
 	 * Oyente para dibujar el movimiento de los jugadores
 	 */
@@ -168,9 +181,12 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 		}
 		logic.printMats();
 	}
+
 	/**
-	 * Dibuja el tablero 
-	 * @param b pivote limite
+	 * Dibuja el tablero
+	 * 
+	 * @param b
+	 *            pivote limite
 	 */
 	private void tablero(int b) {
 		land = new ArrayList<>();
@@ -189,17 +205,24 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 			}
 		}
 	}
+
 	/**
 	 * Agrega el cubo
-	 * @param x coordenada x
-	 * @param y coordenada y
+	 * 
+	 * @param x
+	 *            coordenada x
+	 * @param y
+	 *            coordenada y
 	 */
 	private void add(int x, int y) {
 		land.get(x)[y].setColors(color, false);
 	}
+
 	/**
-	 * Cambia una cadena de color a un Color 
-	 * @param arg la cadena de color
+	 * Cambia una cadena de color a un Color
+	 * 
+	 * @param arg
+	 *            la cadena de color
 	 * @return el color de tipo Color
 	 */
 	public static Color stringToColor(String arg) {
@@ -211,11 +234,13 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 		}
 		return color;
 	}
+
 	/**
 	 * Hace el tablero
 	 */
 	private void makePlaySpace() {
-		logic = new Poobert(new String[] { father.getPlayer1Name(), father.getPlayer2Name() }, father.getSelection());
+		logic = new Poobert(new String[] { father.getPlayer1Name(), father.getPlayer2Name() }, father.getSelection(),
+				father.getHard(), father.getEnem(), father.getHelps());
 		xLevel = logic.getXLevel();
 		yLevel = logic.getYLevel();
 		color = logic.getColors();
@@ -227,10 +252,12 @@ public class Drawer extends JPanel implements ActionListener, KeyListener,Serial
 			}
 		}
 	}
-	public void save(File file){
+
+	public void save(File file) {
 		logic.save(file);
 	}
-	public void open(File file){
+
+	public void open(File file) {
 		try {
 			logic = logic.open(file);
 		} catch (FileNotFoundException e) {

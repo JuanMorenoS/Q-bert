@@ -14,11 +14,12 @@ public class Poobert implements Serializable {
 	private double seconds;
 	private String[] colors, playerNames;
 	private char selection;
+	private char difficulty;
 	private HashMap<Integer, ArrayList<Integer>> graph = new HashMap<>();
-	private String[] posibleMobileElements = new String[] { "Snake","MegaBall","Ugg"};
+	private String[] posibleMobileElements ;
 	// private String[] posibleStaticElements = new
 	// String[]{"UltraSpeed","UltraShield","Mine","EnergyBall","Switch"};
-	private String[] posibleStaticElements = new String[] { "Mine", "EnergyBall", "Switch", "UltraSpeed" };
+	private String[] posibleStaticElements ;
 
 	/**
 	 * @param names
@@ -26,9 +27,12 @@ public class Poobert implements Serializable {
 	 * @param selection
 	 *            la seleccion de modalida de juegdo
 	 */
-	public Poobert(String[] names, char selection) {
+	public Poobert(String[] names, char selection,char dificul,String[] ene,String[] hel) {
+		posibleMobileElements=ene;
+		posibleStaticElements=hel;
+		difficulty= dificul;
 		this.selection = selection;
-		level = 3;
+		level = 1;
 		players = new Player[2];
 		players[1]=new Human(0, 0, null);
 		playerNames = names;
@@ -47,7 +51,7 @@ public class Poobert implements Serializable {
 				try {
 					while (true) {
 						nextFrame();
-						seconds += 0.5;
+						seconds += 1;
 						Thread.sleep(1000);
 					}
 				} catch (Exception e) {
@@ -275,7 +279,7 @@ public class Poobert implements Serializable {
 		for (Mobile b : temp) {
 			b.move();
 		}
-		if ((seconds + 1) % 5 == 0)
+		if ((seconds ) % 5 == 0)
 			putRandomStaticObject();
 		if (seconds%10==0)
 			putRandomMobileObject();
@@ -429,7 +433,7 @@ public class Poobert implements Serializable {
 	}
 
 	public char getDifficult() {
-		return 'H';
+		return difficulty;
 	}
 
 	private void makeGraph() {

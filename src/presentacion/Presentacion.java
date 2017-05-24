@@ -36,7 +36,7 @@ public class Presentacion extends JFrame {
 
 	private void prepareElementos() {
 		setTitle("Mega Q*bert");
-		setSize(600, 600);
+		setSize(600, 800);
 		getContentPane().setBackground(Color.BLACK);
 		setResizable(false);
 		centre();
