@@ -240,7 +240,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener, Seria
 	 */
 	private void makePlaySpace() {
 		logic = new Poobert(new String[] { father.getPlayer1Name(), father.getPlayer2Name() }, father.getSelection(),
-				father.getHard(), father.getEnem(), father.getHelps());
+				father.getHard(), father.getEnem(), father.getHelps(),father.getColor1(),father.getColor2());
 		xLevel = logic.getXLevel();
 		yLevel = logic.getYLevel();
 		color = logic.getColors();

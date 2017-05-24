@@ -15,6 +15,7 @@ public class Poobert implements Serializable {
 	private String[] colors, playerNames;
 	private char selection;
 	private char difficulty;
+	private String colorp1,colorp2;
 	private HashMap<Integer, ArrayList<Integer>> graph = new HashMap<>();
 	private String[] posibleMobileElements ;
 	// private String[] posibleStaticElements = new
@@ -27,14 +28,16 @@ public class Poobert implements Serializable {
 	 * @param selection
 	 *            la seleccion de modalida de juegdo
 	 */
-	public Poobert(String[] names, char selection,char dificul,String[] ene,String[] hel) {
+	public Poobert(String[] names, char selection,char dificul,String[] ene,String[] hel,String col1,String col2) {
+		colorp1=col1;
+		colorp2=col2;
 		posibleMobileElements=ene;
 		posibleStaticElements=hel;
 		difficulty= dificul;
 		this.selection = selection;
 		level = 1;
 		players = new Player[2];
-		players[1]=new Human(0, 0, null);
+		players[1]=new Human(0, 0, null,"orange");
 		playerNames = names;
 		try {
 			readLevel();
@@ -98,10 +101,10 @@ public class Poobert implements Serializable {
 				land[i][j] = (c != 'x') ? new GoodCube(colors) : new BadCube();
 				totalC = (c != 'x') ? totalC + 1 : totalC;
 				if (c == 'Q')
-					mobiles[i][j] = players[0] = new Human(i, j, playerNames[0]);
+					mobiles[i][j] = players[0] = new Human(i, j, playerNames[0],colorp1);
 				if (c == 'P' && selection != '1')
-					mobiles[i][j] = players[1] = selection == '2' ? new Human(i, j, playerNames[1])
-							: new Machine(i, j, playerNames[1]);
+					mobiles[i][j] = players[1] = selection == '2' ? new Human(i, j, playerNames[1],colorp2)
+							: new Machine(i, j, playerNames[1],colorp2);
 				j++;
 			}
 		}
@@ -494,7 +497,6 @@ public class Poobert implements Serializable {
 		while (par[temp] != -1) {
 			vis.add(temp = par[temp]);
 		}
-		System.out.println(vis.toString());
 		return vis;
 	}
 

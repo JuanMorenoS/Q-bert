@@ -132,5 +132,14 @@ public class PoobertGUI extends JFrame {
 		}
 		return res;
 	}
+	public String getColor1(){
+		return father.getColor1();
+	}
+	public String getColor2(){
+		return father.getColor2();
+	}
+	public String getMachineMode(){
+		return father.getMachineMode();
+	}
 	
 }

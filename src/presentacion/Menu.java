@@ -90,9 +90,12 @@ public class Menu extends JFrame {
 		nameSpace.add(new JLabel("<html><font color='white'>Player 2 </font></html>"));
 		nameSpace.add(player2);
 		nameSpace.add(color2=new JComboBox<String>(colors));
+		player2.setVisible(false);
+		color2.setVisible(false);
 		nameSpace.add(new JLabel("<html><font color='white'>Machine Mode </font></html>"));
 		String [] modes = new String[]{"Timido","Ofensivo","Irreflexivo"};
 		nameSpace.add(machineMode= new JComboBox<String>(modes));
+		machineMode.setVisible(false);
 		cuerpo.add(nameSpace);	
 		cuerpo.add(new JLabel("<html><font color='white'>Level</font></html>"));
 		String [] ejemplo = new String[]{"Easy","Hard"};
@@ -147,6 +150,27 @@ public class Menu extends JFrame {
 		play.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				accionStart();
+			}
+		});
+		machine.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				machineMode.setVisible(true);
+				player2.setVisible(true);
+				color2.setVisible(true);
+			}
+		});
+		human.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				player2.setVisible(true);
+				color2.setVisible(true);
+				machineMode.setVisible(false);
+			}
+		});
+		onePlayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				machineMode.setVisible(false);
+				player2.setVisible(false);
+				color2.setVisible(false);
 			}
 		});
 
@@ -216,5 +240,14 @@ public class Menu extends JFrame {
 		if(snake.isSelected()) res.add("Snake");
 		if(megaBall.isSelected()) res.add("MegaBall");
 		return res;
+	}
+	public String getColor1(){
+		return (String) color1.getSelectedItem();
+	}
+	public String getColor2(){
+		return (String) color2.getSelectedItem();
+	}
+	public String getMachineMode(){
+		return (String) machineMode.getSelectedItem();
 	}
 }

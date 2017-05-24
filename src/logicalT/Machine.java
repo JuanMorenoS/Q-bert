@@ -8,13 +8,13 @@ public class Machine extends Player {
 	 * @param j la posicion en x
 	 * @param string el nombre de la maquina
 	 */
-	public Machine(int i, int j, String string) {
+	public Machine(int i, int j, String string,String col) {
 		live=3;
 		cx=j;
 		cy=i;
 		dirx="L";
 		diry="D";
-		color="b";
+		color=col.substring(0,1).toLowerCase();
 		con = new UnThinking(this);
 		this.name=string;
 	}

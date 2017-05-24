@@ -7,13 +7,13 @@ public class Human extends Player{
 	 * @param j el cubo en x
 	 * @param name el nombre del jugador
 	 */
-	public Human(int i, int j, String name) {
+	public Human(int i, int j, String name,String col) {
 		live=3;
 		cx=j;
 		cy=i;
 		dirx="L";
 		diry="D";
-		color="n";
+		color=col.substring(0, 1).toLowerCase();
 		this.name=name;
 		
 	}
