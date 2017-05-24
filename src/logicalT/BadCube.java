@@ -17,8 +17,4 @@ public class BadCube extends Land{
 		return false;
 	}
 
-	public void unVisited() {
-		
-	}
-
 }

@@ -14,7 +14,7 @@ public class Poobert implements Serializable {
 	private double seconds;
 	private String[] colors, playerNames;
 	private char selection;
-	private String[] posibleMobileElements = new String[] { "Ugg", "MegaBallMove", "Snake" };
+	private String[] posibleMobileElements = new String[] {"MegaBall","Ugg"};
 	// private String[] posibleStaticElements = new
 	// String[]{"UltraSpeed","UltraShield","Mine","EnergyBall","Switch"};
 	private String[] posibleStaticElements = new String[] { "Mine", "EnergyBall","Switch","UltraSpeed" };
@@ -34,18 +34,18 @@ public class Poobert implements Serializable {
 			readLevel();
 		} catch (IOException e) {
 		}
+		createThread();
 		startThread();
 
 	}
-
-	public void startThread() {
+	public void createThread(){
 		hilo=new Thread(new Runnable() {
 			public void run() {
 				try {
 					while (true) {
 						nextFrame();
 						seconds += 0.5;
-						Thread.sleep(500);
+						Thread.sleep(1000);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,7 +53,12 @@ public class Poobert implements Serializable {
 
 			}
 		});
+	}
+	public void startThread() {
 		hilo.start();
+	}
+	public void resumeThread() {
+		hilo.resume();
 	}
 	public void stopThread(){
 		try {
@@ -135,6 +140,9 @@ public class Poobert implements Serializable {
 	public void visitLand(int i,int j,Player a){
 		land[i][j].visited(a);
 	}
+	public void unVisitLand(int i,int j){
+		land[i][j].unVisited();
+	}
 	/**
 	 * @param string
 	 *            el movimiento en x
@@ -169,15 +177,22 @@ public class Poobert implements Serializable {
 			if (!isBad(step[0], step[1])) {
 				moveObject(players[1].getCoords(), string, string2);
 				visitLand(step[1], step[0], players[1]);
+				land[step[1]][step[0]].visited(players[1]);
+				if (StaticObjects[step[1]][step[0]] instanceof Help) {
+					StaticObjects[step[1]][step[0]].use(players[1]);
+				}
+			} else {
+				players[1].lose();
 			}
+			destroyStatic(step[0], step[1]);
 		} else {
 			players[1].move();
 		}
 	}
 
 	/**
-	 * @param el
-	 *            pre movimiento
+	 * @param pre
+	 *            el movimiento
 	 * @param a
 	 *            el lado para el que se mueve
 	 * @param b
@@ -251,8 +266,10 @@ public class Poobert implements Serializable {
 		for (Mobile b : temp) {
 			b.move();
 		}
-		if ((seconds + 1) % 2 == 0)
+		if ((seconds + 1) % 20 == 0)
 			putRandomStaticObject();
+		if ((seconds ) % 10  == 0)
+			putRandomMobileObject();
 	}
 
 	public static int[] getRandomNumbers(int x, int y) {
@@ -283,9 +300,20 @@ public class Poobert implements Serializable {
 	 * @return si es mala
 	 */
 	public boolean isStaticBad(int x, int y) {
-		return (land[y][x] instanceof BadCube || StaticObjects[y][x] instanceof Bad);
+		return (isLandBad(x, y) || StaticObjects[y][x] instanceof Bad);
 	}
-
+	/**
+	 * si una zona estatica es mala
+	 * 
+	 * @param x
+	 *            la zona estatica en x
+	 * @param y
+	 *            la zona estatica en y
+	 * @return si es mala
+	 */
+	public boolean isLandBad(int x, int y) {
+		return (land[y][x] instanceof BadCube);
+	}
 	/**
 	 * si una zona estatica es mala
 	 * 
@@ -334,7 +362,7 @@ public class Poobert implements Serializable {
 	 */
 	public void putRandomStaticObject() {
 		Random ran = new Random();
-		int a = ran.nextInt(posibleMobileElements.length + 1);
+		int a = ran.nextInt(posibleStaticElements.length + 1);
 		int x = ran.nextInt(xLevel);
 		int y = ran.nextInt(yLevel);
 		while (isStaticBad(x, y) || mobiles[y][x] != null) {
@@ -347,22 +375,24 @@ public class Poobert implements Serializable {
 		} catch (Exception e) {
 		}
 	}
-
+	public void putMine(int i, int j){
+		StaticObjects[i][j]= new Mine();
+	}
 	/**
 	 * pone objetos mobiles al azar
 	 */
 	public void putRandomMobileObject() {
 		Random ran = new Random();
 		int a = ran.nextInt(posibleMobileElements.length + 1);
-		int y = ran.nextInt(xLevel + 1);
-		int x = ran.nextInt(yLevel + 1);
-		while (isStaticBad(x, y) && mobiles[y][x] == null) {
-			y = ran.nextInt(xLevel + 1);
-			x = ran.nextInt(yLevel + 1);
+		int x = ran.nextInt(xLevel);
+		int y = ran.nextInt(yLevel);
+		while (isStaticBad(x, y) || mobiles[y][x] != null) {
+			y = ran.nextInt(yLevel);
+			x = ran.nextInt(xLevel);
 		}
 		try {
-			mobiles[y][x] = (Mobile) Class.forName("logicalT." + posibleMobileElements[a]).getConstructor()
-					.newInstance();
+			mobiles[y][x] = (Mobile) Class.forName("logicalT." + posibleMobileElements[a]).getConstructor(int.class,int.class)
+					.newInstance(y,x);
 		} catch (Exception e) {
 
 		}
@@ -405,6 +435,10 @@ public class Poobert implements Serializable {
 			System.out.println();
 		}
 		System.out.println();
+	}
+
+	public char getDifficult() {
+		return 'H';
 	}
 
 }

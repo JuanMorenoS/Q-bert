@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public abstract class Land implements Serializable{
 	protected boolean visited;
-	protected String[] colors;
+	protected String[] colors = new String[]{"Black"};
 	protected String actualColor;
 	protected Player player;
 
@@ -12,7 +12,8 @@ public abstract class Land implements Serializable{
 		return actualColor;
 	}
 	/**
-	 * maraca el cubo como visitado
+	 * 
+	 * @param a el jugador visitado
 	 */
 	public abstract void visited(Player a);
 	/**
@@ -22,5 +23,9 @@ public abstract class Land implements Serializable{
 	/**
 	 * lo marca como no visitado
 	 */
-	public abstract void unVisited();
+	public void unVisited(){
+		actualColor = colors[0];
+		player=null;
+		visited = false;
+	}
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 public class UnThinking extends Conduct {
 
 	/**
-	 * @param a
+	 * @param a el objeto
 	 */
 	public UnThinking(Mobile a) {
 		super(a);
@@ -18,7 +18,7 @@ public class UnThinking extends Conduct {
 		String xx = x.nextBoolean() ? "R" : "L";
 		String yy = x.nextBoolean() ? "U" : "D";
 		int[] a = element.Premove(xx, yy);
-		while (element.getLogic().isBad(a[0], a[1])) {
+		while (element.getLogic().isLandBad(a[0], a[1])) {
 			xx = x.nextBoolean() ? "R" : "L";
 			yy = x.nextBoolean() ? "U" : "D";
 			a = element.Premove(xx, yy);

@@ -28,10 +28,4 @@ public class GoodCube extends Land {
 	public boolean isVisited() {
 		return visited;
 	}
-
-	public void unVisited() {
-		actualColor = colors[0];
-		player=null;
-		visited = false;
-	}
 }

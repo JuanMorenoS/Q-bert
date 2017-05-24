@@ -50,6 +50,12 @@ public abstract class Mobile implements Serializable{
 		dirx=a;
 		diry=b;
 	}
+	public void setCx(int x){
+		cx=x;
+	}
+	public void setCy(int y){
+		cy=y;
+	}
 	/**
 	 * mueve el jugador deacuerdo a su conducta
 	 * @return la siguiente jugada
