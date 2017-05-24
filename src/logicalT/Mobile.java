@@ -3,7 +3,8 @@ package logicalT;
 import java.io.Serializable;
 
 public abstract class Mobile implements Serializable{
-	protected int cx,cy,live;
+	protected int cx,cy;
+	protected int live=1;
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -107,5 +108,8 @@ public abstract class Mobile implements Serializable{
 	}
 	public Poobert getLogic(){
 		return logic;
+	}
+	public void lose() {
+		live--;
 	}
 }

@@ -8,7 +8,7 @@ public class Human extends Player{
 	 * @param name el nombre del jugador
 	 */
 	public Human(int i, int j, String name,String col) {
-		live=3;
+		live=4;
 		cx=j;
 		cy=i;
 		dirx="L";
