@@ -39,7 +39,7 @@ public class Poobert implements Serializable {
 		this.selection = selection;
 		level = 1;
 		players = new Player[2];
-		players[1] = new Human(0, 0, null, "orange");
+		players[1] = new Human(0, 0, null, "orange", 2);
 		playerNames = names;
 		try {
 			readLevel();
@@ -103,10 +103,10 @@ public class Poobert implements Serializable {
 				land[i][j] = (c != 'x') ? new GoodCube(colors) : new BadCube();
 				totalC = (c != 'x') ? totalC + 1 : totalC;
 				if (c == 'Q')
-					mobiles[i][j] = players[0] = new Human(i, j, playerNames[0], colorp1);
+					mobiles[i][j] = players[0] = new Human(i, j, playerNames[0], colorp1, 1);
 				if (c == 'P' && selection != '1')
-					mobiles[i][j] = players[1] = selection == '2' ? new Human(i, j, playerNames[1], colorp2)
-							: new Machine(i, j, playerNames[1], colorp2, modeMachine);
+					mobiles[i][j] = players[1] = selection == '2' ? new Human(i, j, playerNames[1], colorp2, 2)
+							: new Machine(i, j, playerNames[1], colorp2, modeMachine, 2);
 				j++;
 			}
 		}
@@ -178,7 +178,7 @@ public class Poobert implements Serializable {
 			}
 		} else {
 			players[0].lose();
-			if(players[0].getLive()==0)
+			if (players[0].getLive() == 0)
 				destroyMobile(step[0], step[1]);
 		}
 		destroyStatic(step[0], step[1]);
@@ -202,7 +202,7 @@ public class Poobert implements Serializable {
 				}
 			} else {
 				players[1].lose();
-				if(players[1].getLive()==0)
+				if (players[1].getLive() == 0)
 					destroyMobile(step[0], step[1]);
 			}
 			destroyStatic(step[0], step[1]);
@@ -221,16 +221,15 @@ public class Poobert implements Serializable {
 	 */
 	public void moveObject(int[] pre, String a, String b) {
 		int[] pos = mobiles[pre[1]][pre[0]].Premove(a, b);
-		if (isBad(pos[0], pos[1])){
+		if (isBad(pos[0], pos[1])) {
 			mobiles[pre[1]][pre[0]].lose();
 			if (mobiles[pre[1]][pre[0]].getLive() <= 1)
 				destroyMobile(pre[1], pre[0]);
+		} else {
+			mobiles[pos[1]][pos[0]] = mobiles[pre[1]][pre[0]];
+			mobiles[pre[1]][pre[0]] = null;
+			mobiles[pos[1]][pos[0]].move(a, b);
 		}
-			else {
-				mobiles[pos[1]][pos[0]] = mobiles[pre[1]][pre[0]];
-				mobiles[pre[1]][pre[0]] = null;
-				mobiles[pos[1]][pos[0]].move(a, b);
-			}
 
 	}
 
@@ -502,9 +501,7 @@ public class Poobert implements Serializable {
 					par[i] = u;
 					visited[i] = true;
 					Q.add(i);
-					if (i == ((players[0].getCx() * 1000) + players[0].getCy())
-							|| (i == ((players[1].getCx() * 1000) + players[1].getCy()))
-									&& (players[1].getCx() + players[1].getCy()) != 0) {
+					if (i == ((players[0].getCx() * 1000) + players[0].getCy())) {
 						break loop;
 					}
 				}
@@ -541,6 +538,35 @@ public class Poobert implements Serializable {
 		System.out.println();
 	}
 
+	public int getVidas1() {
+		return players[0].getLive();
+	}
+
+	public int getVidas2() {
+		return players[1].getLive();
+	}
+
+	public int getPuntos1() {
+		int res = 0;
+		for (int i = 0; i < yLevel; i++)
+			for (int j = 0; j < xLevel; j++) {
+				if (!isLandBad(j, i) && land[i][j].isVisited() && land[i][j].getPlayer().pl == 1)
+					res++;
+
+			}
+		return res;
+	}
+
+	public int getPuntos2() {
+		int res = 0;
+		for (int i = 0; i < yLevel; i++)
+			for (int j = 0; j < xLevel; j++) {
+				if (!isLandBad(j, i) && land[i][j].isVisited() && land[i][j].getPlayer().pl == 2)
+					res++;
+
+			}
+		return res;
+	}
 }
 /*
  * try{ edicion

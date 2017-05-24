@@ -28,4 +28,6 @@ public abstract class Land implements Serializable{
 		player=null;
 		visited = false;
 	}
+	
+	public abstract Player getPlayer();
 }
