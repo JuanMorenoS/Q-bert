@@ -6,6 +6,7 @@ public abstract class Player extends Mobile implements Serializable{
 	protected String color;
 	public int pl;
 	protected String power=null;
+	protected boolean shield;
 	/**
 	 * me dice si un jugador tiene ataque
 	 * @return si tiene un ataque
@@ -24,5 +25,14 @@ public abstract class Player extends Mobile implements Serializable{
 	}
 	public boolean equals(Player a){
 		return a.color==color;
+	}
+	public void setShield() {
+		shield=true;
+	}
+	public boolean isShield() {
+		return shield;
+	}
+	public void setNoShield() {
+		shield=false;
 	}
 }
