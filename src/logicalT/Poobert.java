@@ -177,7 +177,10 @@ public class Poobert implements Serializable {
 				StaticObjects[step[1]][step[0]].use(players[0]);
 			}
 		} else {
-			players[0].lose();
+			if (players[0].isShield()) {
+				players[0].setNoShield();
+			} else
+				players[0].lose();
 			if (players[0].getLive() == 0)
 				destroyMobile(step[0], step[1]);
 		}
@@ -201,7 +204,10 @@ public class Poobert implements Serializable {
 					StaticObjects[step[1]][step[0]].use(players[1]);
 				}
 			} else {
-				players[1].lose();
+				if (players[1].isShield()) {
+					players[1].setNoShield();
+				} else
+					players[1].lose();
 				if (players[1].getLive() == 0)
 					destroyMobile(step[0], step[1]);
 			}
@@ -293,9 +299,10 @@ public class Poobert implements Serializable {
 	public void nextFrame() {
 		ArrayList<Mobile> temp = new ArrayList<>();
 		for (Mobile[] a : mobiles)
-			for (Mobile b : a)
+			for (Mobile b : a) {
 				if (b != null)
 					temp.add(b);
+			}
 		for (Mobile b : temp) {
 			b.move();
 		}
@@ -567,11 +574,11 @@ public class Poobert implements Serializable {
 			}
 		return res;
 	}
+
+	public String getPoder1() {
+		return players[0].usePower();
+	}
+	public String getPoder2() {
+		return players[1].usePower();
+	}
 }
-/*
- * try{ edicion
- * =(Normal)Class.forName("ICPC."+tipo).getConstructor().newInstance(); }
- * catch(Exception e){ } } }
- * 
- * 
- */

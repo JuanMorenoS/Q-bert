@@ -286,8 +286,7 @@ public class Drawer extends JPanel implements ActionListener, KeyListener, Seria
 	}
 
 	public String getPoderes1() {
-		// TODO Auto-generated method stub
-		return null;
+		return logic.getPoder1();
 	}
 
 	public int  getPuntos2() {
@@ -295,7 +294,6 @@ public class Drawer extends JPanel implements ActionListener, KeyListener, Seria
 	}
 
 	public String getPoderes2() {
-		// TODO Auto-generated method stub
-		return null;
+		return logic.getPoder2();
 	}
 }
