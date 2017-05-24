@@ -4,10 +4,13 @@ public class Machine extends Player {
 	private Conduct con;
 	private String modeq;
 	/**
-	 * constructor de Machine
-	 * @param i la posicion en y
-	 * @param j la posicion en x
-	 * @param string el nombre de la maquina
+	 * 
+	 * @param i pos x
+	 * @param j pos y
+	 * @param string nombre 
+	 * @param col color 
+	 * @param mode modo 
+	 * @param a jugador
 	 */
 	public Machine(int i, int j, String string,String col,String mode,int a) {
 		pl=a;

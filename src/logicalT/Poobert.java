@@ -22,11 +22,16 @@ public class Poobert implements Serializable {
 	// String[]{"UltraSpeed","UltraShield","Mine","EnergyBall","Switch"};
 	private String[] posibleStaticElements;
 
-	/**
-	 * @param names
-	 *            los nombre de los jugadores
-	 * @param selection
-	 *            la seleccion de modalida de juegdo
+	/***
+	 * 
+	 * @param names nombres 
+	 * @param selection seleccion de juego 
+	 * @param dificul dificultad 
+	 * @param ene enemigos 
+	 * @param hel ayudas 
+	 * @param col1 color 1 
+	 * @param col2 color 2
+	 * @param modeM modo maquina
 	 */
 	public Poobert(String[] names, char selection, char dificul, String[] ene, String[] hel, String col1, String col2,
 			String modeM) {

@@ -2,10 +2,12 @@ package logicalT;
 
 public class Human extends Player{
 	/**
-	 * Constructor Human 
-	 * @param i el cubo en y
-	 * @param j el cubo en x
-	 * @param name el nombre del jugador
+	 * 
+	 * @param i pos x
+	 * @param j pos y 
+	 * @param name nombre 
+	 * @param col color 
+	 * @param a poasda
 	 */
 	public Human(int i, int j, String name,String col,int a) {
 		pl=a;
