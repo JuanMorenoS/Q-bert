@@ -28,4 +28,7 @@ public class GoodCube extends Land {
 	public boolean isVisited() {
 		return visited;
 	}
+	public Player getPlayer(){
+		return player;
+	}
 }

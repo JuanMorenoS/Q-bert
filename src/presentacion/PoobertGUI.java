@@ -5,6 +5,7 @@ package presentacion;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,9 +28,12 @@ public class PoobertGUI extends JFrame {
 	private JMenuItem save;
 	private JMenuItem exit;
 	private JFileChooser explorer;
-	
+
 	private Drawer tablero;
 	private Menu father;
+	private JPanel p1;
+	private JPanel p2;
+	private JLabel vidas1, puntos1, vidas2, puntos2, poderes1, poderes2;
 
 	public PoobertGUI(Menu god) {
 		super();
@@ -59,6 +63,42 @@ public class PoobertGUI extends JFrame {
 		prepareMenuPrincipal();
 		add(menu, BorderLayout.NORTH);
 		centre();
+		prepareP1();
+		add(p1, BorderLayout.WEST);
+		prepareP2();
+		add(p2, BorderLayout.EAST);
+	}
+
+	private void prepareP1() {
+		p1 = new JPanel();
+		p1.setLayout(new GridLayout(4, 1));
+		p1.add(new JLabel("Player 1 "));
+		p1.add(vidas1 = new JLabel("Vidas: " + tablero.getVidas1()));
+		p1.add(puntos1 = new JLabel("Puntos: " + tablero.getPuntos1()));
+		p1.add(poderes1 = new JLabel("Poder: " + tablero.getPoderes1()));
+
+	}
+
+	private void prepareP2() {
+		p2 = new JPanel();
+		p2.setLayout(new GridLayout(4, 1));
+		p2.add(new JLabel("Player 2 "));
+		p2.add(vidas2 = new JLabel("Vidas: " + tablero.getVidas2()));
+		p2.add(puntos2 = new JLabel("Puntos: " + tablero.getPuntos2()));
+		p2.add(poderes2 = new JLabel("Poder: " + tablero.getPoderes2()));
+	}
+
+	public void refresque1() {
+		vidas1.setText("Vidas: " + tablero.getVidas1());
+		puntos1.setText("Puntos: "+tablero.getPuntos1());
+		poderes1.setText("Podere: "+tablero.getPoderes1());
+	}
+
+	public void refresque2() {
+		vidas2.setText("Vidas: " + tablero.getVidas2());
+		puntos2.setText("Puntos: "+tablero.getPuntos2());
+		poderes2.setText("Podere: "+tablero.getPoderes2());
+
 	}
 
 	private void centre() {
@@ -97,14 +137,16 @@ public class PoobertGUI extends JFrame {
 		exit = new JMenuItem("Exit");
 		men.add(exit);
 	}
+
 	private void guarde() {
 		explorer = new JFileChooser();
 		explorer.setDialogTitle("Save...");
 		if (explorer.showSaveDialog(open) == JFileChooser.APPROVE_OPTION) {
-			File file = new File(explorer.getSelectedFile().getAbsolutePath()+".dat");
+			File file = new File(explorer.getSelectedFile().getAbsolutePath() + ".dat");
 			tablero.save(file);
 		}
 	}
+
 	private void seleccione() {
 		explorer = new JFileChooser();
 		explorer.setDialogTitle("Open...");
@@ -114,32 +156,38 @@ public class PoobertGUI extends JFrame {
 			tablero.open(explorer.getSelectedFile());
 		}
 	}
-	public char getHard(){
+
+	public char getHard() {
 		System.out.println(father.getHard());
-		return father.getHard().equals("Hard")?'H':'E';
+		return father.getHard().equals("Hard") ? 'H' : 'E';
 	}
-	public String[] getHelps(){
+
+	public String[] getHelps() {
 		String[] res = new String[father.getHelpSelection().size()];
-		for(int i=0;i<res.length;i++){
-			res[i]=father.getHelpSelection().get(i);
+		for (int i = 0; i < res.length; i++) {
+			res[i] = father.getHelpSelection().get(i);
 		}
 		return res;
 	}
-	public String[] getEnem(){
+
+	public String[] getEnem() {
 		String[] res = new String[father.getEnemSelection().size()];
-		for(int i=0;i<res.length;i++){
-			res[i]=father.getEnemSelection().get(i);
+		for (int i = 0; i < res.length; i++) {
+			res[i] = father.getEnemSelection().get(i);
 		}
 		return res;
 	}
-	public String getColor1(){
+
+	public String getColor1() {
 		return father.getColor1();
 	}
-	public String getColor2(){
+
+	public String getColor2() {
 		return father.getColor2();
 	}
-	public String getMachineMode(){
+
+	public String getMachineMode() {
 		return father.getMachineMode();
 	}
-	
+
 }

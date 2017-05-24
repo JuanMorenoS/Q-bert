@@ -13,8 +13,15 @@ public class BadCube extends Land{
 	}
 
 
-	public boolean isVisited() {
+	public boolean  isVisited() {
 		return false;
+	}
+
+
+	@Override
+	public Player getPlayer() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

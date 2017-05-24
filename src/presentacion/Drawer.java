@@ -135,6 +135,8 @@ public class Drawer extends JPanel implements ActionListener, KeyListener, Seria
 	 */
 	public void actionPerformed(ActionEvent e) {
 		repaint();
+		father.refresque1();
+		father.refresque2();
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -270,5 +272,30 @@ public class Drawer extends JPanel implements ActionListener, KeyListener, Seria
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public  int getVidas1() {
+		return logic.getVidas1();
+	}
+	public  int getVidas2() {
+		return logic.getVidas2();
+	}
+
+	public int getPuntos1() {
+		return logic.getPuntos1();
+	}
+
+	public String getPoderes1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int  getPuntos2() {
+		return logic.getPuntos2();
+	}
+
+	public String getPoderes2() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -9,7 +9,8 @@ public class Machine extends Player {
 	 * @param j la posicion en x
 	 * @param string el nombre de la maquina
 	 */
-	public Machine(int i, int j, String string,String col,String mode) {
+	public Machine(int i, int j, String string,String col,String mode,int a) {
+		pl=a;
 		live=4;
 		cx=j;
 		cy=i;
