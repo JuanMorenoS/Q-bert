@@ -23,7 +23,7 @@ public class CheesHorse extends Conduct {
 			String xx = ran.nextBoolean() ? "R" : "L";
 			String yy = ran.nextBoolean() ? "U" : "D";
 			int[] a = element.Premove(xx, yy);
-			while (element.getLogic().isLandBad(a[0], a[1])) {
+			while (element.getLogic().isLandBad(a[0], a[1]) && element.logic.getMobile(a[0], a[1]).equals("0")) {
 				xx = ran.nextBoolean() ? "R" : "L";
 				yy = ran.nextBoolean() ? "U" : "D";
 				a = element.Premove(xx, yy);
@@ -31,14 +31,14 @@ public class CheesHorse extends Conduct {
 			cola.add(new String[] { xx, yy });
 			element.move(xx, yy);
 			int[] a2 = element.Premove(xx, yy);
-			if (!element.getLogic().isLandBad(a2[0], a2[1])) {
+			if (!element.getLogic().isLandBad(a2[0], a2[1]) && element.logic.getMobile(a[0], a[1]).equals("0")) {
 				cola.add(new String[] { xx, yy });
-				element.move(xx, yy);// neg x+y || x+neg y
+				element.move(xx, yy);
 				int[] a3 = element.Premove(xx, yy.equals("U") ? "D" : "U");
-				if (!element.getLogic().isLandBad(a3[0], a3[1])) {
+				if (!element.getLogic().isLandBad(a3[0], a3[1]) && element.logic.getMobile(a[0], a[1]).equals("0")) {
 					cola.add(new String[] { xx, yy.equals("U") ? "D" : "U" });
 					a3 = element.Premove(xx.equals("R") ? "L" : "R", yy);
-				} else if (!element.getLogic().isLandBad(a3[0], a3[1]))
+				} else if (!element.getLogic().isLandBad(a3[0], a3[1]) && element.logic.getMobile(a[0], a[1]).equals("0"))
 					cola.add(new String[] { xx.equals("R") ? "L" : "R", yy });
 			}
 			element.setCx(backup[0]);
